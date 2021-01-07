@@ -25,8 +25,23 @@
 
                     <div id="embededVideo">
                         <div id="iframeDiv" class="row embed-responsive embed-responsive-16by9">
-                            <div style="padding:56.25% 0 0 0;"><iframe src="https://player.vimeo.com/video/492170037?autoplay=1&title=0&byline=0&portrait=0" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
-                            <!-- isset($sessions) ? '<iframe src="https://viewer.millicast.com/v2?streamId=pYVHx2/'.str_replace(' ', '', $sessions->embed_html_code).'&autoPlay=true&muted=true&disableFull=true" width="100%" height="100%"></iframe>' : "" -->
+
+                            <?php
+                                if (isset($sessions))
+                                {
+                                    if ($sessions->stream_type == 'vimeo_iframe')
+                                    {
+                                        echo $sessions->embed_html_code;
+                                    }elseif ($sessions->stream_type == 'millicast'){
+                                        echo '<iframe src="https://viewer.millicast.com/v2?streamId=pYVHx2/'.str_replace(' ', '', $sessions->millicast_stream_name).'&autoPlay=true&muted=true&disableFull=true" width="100%" height="100%"></iframe>';
+                                    }else{
+                                        echo '<video autoplay muted loop style="width: 100%; height: auto;">
+                                                <source src="'.base_url().'front_assets/gp/Animated_GP_Logo-low_size.mp4" type="video/mp4">
+                                              </video>';
+                                    }
+                                }
+                            ?>
+
                         <div class="videoElement">
                             <span id="btnFS" class="glyphicon glyphicon-resize-full" data-toggle="tooltip" title="Full Screen"></span>
                         </div>

@@ -60,7 +60,7 @@ class Sessions extends CI_Controller {
 
         $sesions = $this->objsessions->viewSessionsData($sessions_id);
 
-        if (date("Y-m-d H:i:s") > date("Y-m-d H:i:s", strtotime($sesions->sessions_date . ' ' . $sesions->end_time))) {
+        if (date("Y-m-d H:i:s") > date("Y-m-d H:i:s", strtotime($sesions->sessions_date . ' ' . $sesions->end_time)) && $sesions->stream_type != 'vimeo_iframe') {
             header("location:" . base_url() . "sessions/session_end");
             die();
         }

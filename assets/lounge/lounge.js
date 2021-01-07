@@ -364,7 +364,9 @@ $(function() {
                                 }
                             });
 
-                            $.get( base_url+"LoungeOtoChat/readAllTextsOf/"+otherUserId, function() {});
+                            $.get( base_url+"LoungeOtoChat/readAllTextsOf/"+otherUserId, function() {
+                                fillUnreadMessages();
+                            });
 
                         }else{
                             toastr["error"]("Network problem!");

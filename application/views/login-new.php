@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Faux SKO 21</title>
+    <title>Gravity Productions</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--===============================================================================================-->
-    <link rel="icon" type="image/png" href="<?= base_url() ?>front_assets/images/FAUXSKO21/fauxsko_icon_transparent.png"/>
+    <link rel="icon" type="image/png" href="<?= base_url() ?>front_assets/gp/gp-logo-white.png"/>
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="<?=base_url()?>front_assets/login_template/vendor/bootstrap/css/bootstrap.min.css">
     <!--===============================================================================================-->
@@ -30,10 +30,12 @@
 <body>
 
 <div class="limiter">
-    <div class="container-login100" style="background-image: url(<?=base_url()?>front_assets/images/mohammed-shaheen-Fo44off83V8-unsplash.jpg)">
+    <div class="container-login100" style="background-image: url(<?=base_url()?>front_assets/gp/668940634.jpg);background-size: cover;background-repeat: no-repeat;">
         <div class="wrap-login100">
-            <div class="login100-form-title"">
-					<img src="<?=base_url()?>front_assets/images/FAUXSKO21/SKO_2021_WebHero_1920w.png" style="width: 100%;height: auto;">
+            <div class="login100-form-title">
+                <video autoplay muted loop class="gpLogoAnimated" style="width: 100%; height: auto;">
+                    <source src="<?=base_url()?>front_assets/gp/Animated_GP_Logo_Cropped-low_size.mp4" type="video/mp4">
+                </video>
             </div>
 
             <form class="login100-form validate-form" method="post" action="<?= base_url() ?>login/authentication">
@@ -70,6 +72,7 @@
                     </button>
                 </div>
             </form>
+            <span style="display: block;text-align: center;">Powered by One World</span>
         <a href="<?=base_url()?>">
             <button class="btn btn-secondary">
                 Back

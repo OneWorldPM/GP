@@ -1,6 +1,6 @@
 <style>
     body{
-        background-image: url(<?= base_url() ?>front_assets/images/FAUXSKO21/Forescout_FAUXSKO21_Session_Page_Mockup.png);
+        background-image: url(<?= base_url() ?>front_assets/gp/istockphoto_959533556_612x612.jpg);
         background-attachment: fixed;
         background-size: cover !important;
         background-position: center center !important;
@@ -130,7 +130,7 @@
                                                 ?>
                                                 <div class="post-description">
                                                     <p style="margin-bottom: 10px;"><?= $val->sessions_description ?></p>
-                                                    <a class="button black-light button-3d rounded right" style="margin: 0px 0;background-color: #002f70;" href="<?= base_url() ?>sessions/attend/<?= $val->sessions_id ?>"><span>Attend</span></a>
+                                                    <a class="button black-light button-3d rounded right" style="margin: 0px 0;background-color: #002f70;" href="<?= ($val->stream_type == 'vimeo_iframe')?base_url().'sessions/view/'.$val->sessions_id:base_url().'sessions/attend/'.$val->sessions_id ?>"><span>Attend</span></a>
                                                 </div>
                                             </div>
                                         </div>

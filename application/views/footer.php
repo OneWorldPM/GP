@@ -48,69 +48,108 @@
             socket.on('serverStatus', function (data) {
                 socket.emit('addMeToActiveListPerApp', {'user_id':user_id, 'app': socket_app_name, 'room': socket_active_user_list});
             });
-        });
 
-        // Active again
-        function resetActive(){
-            socket.emit('userActiveChangeInApp', {"app":socket_app_name, "room":socket_active_user_list, "name":user_name, "userId":user_id, "status":true});
-        }
-        // No activity let everyone know
-        function inActive(){
-            socket.emit('userActiveChangeInApp', {"app":socket_app_name, "room":socket_active_user_list, "name":user_name, "userId":user_id, "status":false});
-        }
-
-        $(window).on("blur focus", function(e) {
-            var prevType = $(this).data("prevType");
-
-            if (prevType != e.type) {   //  reduce double fire issues
-                switch (e.type) {
-                    case "blur":
-                        inActive();
-                        break;
-                    case "focus":
-                        resetActive();
-                        break;
-                }
+            // Active again
+            function resetActive(){
+                socket.emit('userActiveChangeInApp', {"app":socket_app_name, "room":socket_active_user_list, "name":user_name, "userId":user_id, "status":true});
+            }
+            // No activity let everyone know
+            function inActive(){
+                socket.emit('userActiveChangeInApp', {"app":socket_app_name, "room":socket_active_user_list, "name":user_name, "userId":user_id, "status":false});
             }
 
-            $(this).data("prevType", e.type);
+            $(window).on("blur focus", function(e) {
+                var prevType = $(this).data("prevType");
+
+                if (prevType != e.type) {   //  reduce double fire issues
+                    switch (e.type) {
+                        case "blur":
+                            inActive();
+                            break;
+                        case "focus":
+                            resetActive();
+                            break;
+                    }
+                }
+
+                $(this).data("prevType", e.type);
+            });
+
+            socket.on('unreadMessage', function (data) {
+                if(data.chat_to == user_id)
+                    fillUnreadMessages();
+            });
+
+            var app_name_main = "<?=getAppName("") ?>";
+            push_notification_admin();
+            //setInterval(push_notification_admin, 2000);
+            socket.on('push_notification_change', (socket_app_name) => {
+                if (socket_app_name == app_name_main)
+                    push_notification_admin();
+            });
         });
     });
 </script>
 <script type="text/javascript">
     $(document).ready(function () {
-        var app_name_main = "<?=getAppName("") ?>";
-        push_notification_admin();
-        //setInterval(push_notification_admin, 2000);
-        socket.on('push_notification_change', (socket_app_name) => {
-            if (socket_app_name == app_name_main)
-                push_notification_admin();
-        });
-        function push_notification_admin()
-        {
-            var push_notification_id = $("#push_notification_id").val();
-
-            $.ajax({
-                url: "<?= base_url() ?>push_notification/get_push_notification_admin",
-                type: "post",
-                dataType: "json",
-                success: function (data) {
-                    if (data.status == "success") {
-                        if (push_notification_id == "0") {
-                            $("#push_notification_id").val(data.result.push_notification_id);
-                        }
-                        if (push_notification_id != data.result.push_notification_id) {
-                            $("#push_notification_id").val(data.result.push_notification_id);
-                            $('#push_notification').modal('show');
-                            $("#push_notification_message").text(data.result.message);
-                        }
-                    } else {
-                        $('#push_notification').modal('hide');
-                    }
-                }
-            });
-        }
+        fillUnreadMessages();
     });
+
+    function fillUnreadMessages() {
+        $('.unread-msg-count').html('0');
+        $('.unread-msgs-list').html('');
+        $.get("<?= base_url() ?>user/UnreadMessages/getUnreadMessages", function (messages) {
+            messages = JSON.parse(messages);
+            var count = Object.keys(messages).length;
+            if (count > 0) {
+                $('.badge-notify').css('background', '#f11');
+            }
+            else {
+                $('.badge-notify').css('background', '#727272');
+            }
+            $('.unread-msg-count').html(count);
+
+            $.each(messages, function (number, message) {
+                if (message.from_room_type == 'sponsor'){
+                    $('.unread-msgs-list').append('' +
+                        '<a target="_blank" class="dropdown-item waves-effect waves-light m-b-20" href="<?= base_url() ?>sponsor/view/' + message.sponsor_id + '"><i class="fa fa-commenting-o" aria-hidden="true"></i><strong>New message from ' + message.company_name + '</strong></a>');
+                    //$('.unread-msgs-list').append('' +
+                    //    '<a target="_blank" class="dropdown-item waves-effect waves-light" href="<?//= base_url() ?>//sponsor/view/' + message.sponsor_id + '"><strong>New message from ' + message.company_name + '</strong></a>' +
+                    //    '<a href="<?//= base_url() ?>//sponsor/view/' + message.sponsor_id + '" target="_blank">' + message.text + '</a>');
+                }else{
+                    $('.unread-msgs-list').append('' +
+                        '<a href="<?=base_url()?>lounge" class="dropdown-item waves-effect waves-light m-b-20" style="color: #4f4f4f;"><i class="fa fa-commenting-o" aria-hidden="true"></i><strong>New message from ' + message.from_name + '</strong></a>');
+                }
+
+
+            });
+        });
+    }
+
+    function push_notification_admin()
+    {
+        var push_notification_id = $("#push_notification_id").val();
+
+        $.ajax({
+            url: "<?= base_url() ?>push_notification/get_push_notification_admin",
+            type: "post",
+            dataType: "json",
+            success: function (data) {
+                if (data.status == "success") {
+                    if (push_notification_id == "0") {
+                        $("#push_notification_id").val(data.result.push_notification_id);
+                    }
+                    if (push_notification_id != data.result.push_notification_id) {
+                        $("#push_notification_id").val(data.result.push_notification_id);
+                        $('#push_notification').modal('show');
+                        $("#push_notification_message").text(data.result.message);
+                    }
+                } else {
+                    $('#push_notification').modal('hide');
+                }
+            }
+        });
+    }
 </script>
 
 </body>

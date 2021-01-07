@@ -65,11 +65,11 @@ function startCounting(){
         }
     },1000);
 
-    Swal.fire(
-        'INFO',
-        'Be sure to unmute the player located on the bottom right side of the page.',
-        'warning'
-    );
+    // Swal.fire(
+    //     'INFO',
+    //     'Be sure to unmute the player located on the bottom right side of the page.',
+    //     'warning'
+    // );
 
 }
 

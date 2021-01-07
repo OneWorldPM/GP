@@ -79,8 +79,8 @@
                 <div class="box-login">
                     <form class="form-login" id="frm_login" name="frm_login" method="post" action="<?= base_url() ?>admin/alogin/authentication">
                         <div class="row">
-                            <div style="text-align: center">                           
-                                <img src="<?= base_url() ?>front_assets/images/FAUXSKO21/Forescout_Logo_CCPage.png" alt="admin" >
+                            <div style="text-align: center; background-color: black;">
+                                <img src="<?= base_url() ?>front_assets/gp/gp-logo-white.png" alt="admin" style="width: 15%;">
                             </div>
                         </div>
                         <fieldset>

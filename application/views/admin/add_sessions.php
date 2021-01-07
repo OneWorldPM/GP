@@ -15,6 +15,7 @@ $user_role = $this->session->userdata('role');
         <!-- start: DYNAMIC TABLE -->
         <div class="container-fluid container-fullw">
             <div class="row">
+                <form name="add_sessions_frm" id="add_sessions_frm" action="<?= isset($sessions_edit) ? base_url() . "admin/sessions/updateSessions" : base_url() . "admin/sessions/createSessions" ?>" method="POST" enctype="multipart/form-data">
                 <div class="col-md-6">
                     <div class="panel panel-primary" id="panel5">
                         <div class="panel-heading">
@@ -22,7 +23,7 @@ $user_role = $this->session->userdata('role');
                         </div>
                         <div class="panel-body bg-white" style="border: 1px solid #b2b7bb!important;">
                             <div class="col-md-12">
-                                <form name="add_sessions_frm" id="add_sessions_frm" action="<?= isset($sessions_edit) ? base_url() . "admin/sessions/updateSessions" : base_url() . "admin/sessions/createSessions" ?>" method="POST" enctype="multipart/form-data">
+
                                     <?php if (isset($sessions_edit)) { ?>
                                         <input type="hidden" name="sessions_id" id="session_title" value="<?= $sessions_edit->sessions_id ?>">
                                     <?php } ?>
@@ -106,13 +107,28 @@ $user_role = $this->session->userdata('role');
                                             </div>
                                         </div>
                                     </div>
+
+
                                     <div class="form-group" <?=($user_role != 'super_admin')?'style="display:none"':''?>>
-                                        <label class="text-large text-bold">Millicast Stream Name</label>
-                                        <input type="text" class="form-control" style="color: #000;" name="embed_html_code" id="embed_html_code" value="<?= (isset($sessions_edit) && !empty($sessions_edit) ) ? $sessions_edit->embed_html_code : "" ?>" <?=($user_role != 'super_admin')?'readonly':''?>>
+                                        <label class="text-large text-bold">Stream Type</label>
+                                        <select class="form-control" name="stream_type" id="stream_type">
+                                            <option value="millicast" <?=(isset($sessions_edit) && $sessions_edit->stream_type == 'millicast')?'selected':''?>>Millicast</option>
+                                            <option value="vimeo_iframe" <?=(isset($sessions_edit) && $sessions_edit->stream_type == 'vimeo_iframe')?'selected':''?>>Vimeo iframe</option>
+                                        </select>
                                     </div>
+                                    <div id="millicast_name_div" class="form-group"  <?=($user_role != 'super_admin')?'style="display:none"':'style="display:block;"'?>>
+                                        <label class="text-large text-bold">Millicast Stream Name</label>
+                                        <input type="text" class="form-control" style="color: #000;" name="millicast_name" id="millicast_name" value="<?= (isset($sessions_edit) && !empty($sessions_edit) ) ? $sessions_edit->millicast_stream_name : "NA" ?>">
+                                    </div>
+                                    <div id="iframe_code_div" class="form-group" <?=($user_role != 'super_admin')?'style="display:none"':'style="display:none;"'?>>
+                                        <label class="text-large text-bold">iframe code</label>
+                                        <textarea class="form-control" style="color: #000;" placeholder="iframe code" name="embed_html_code" id="embed_html_code_presenter" ><?= (isset($sessions_edit) && !empty($sessions_edit) ) ? $sessions_edit->embed_html_code : "" ?></textarea>
+                                    </div>
+
+
                                     <div class="form-group" <?=($user_role != 'super_admin')?'style="display:none"':''?>>
                                         <label class="text-large text-bold">Embed HTML Code <b>(Presenter)</b></label>
-                                        <textarea class="form-control" style="color: #000;" placeholder="Embed HTML Code" name="embed_html_code_presenter" id="embed_html_code_presenter" <?=($user_role != 'super_admin')?'readonly':''?>><?= (isset($sessions_edit) && !empty($sessions_edit) ) ? $sessions_edit->embed_html_code_presenter : "" ?></textarea>
+                                        <textarea class="form-control" style="color: #000;" placeholder="Embed HTML Code" name="embed_html_code_presenter" id="embed_html_code_presenter"><?= (isset($sessions_edit) && !empty($sessions_edit) ) ? $sessions_edit->embed_html_code_presenter : "" ?></textarea>
                                     </div>
 
                                     <hr style="border: 2px solid;"/>
@@ -249,7 +265,6 @@ $user_role = $this->session->userdata('role');
                                                 <button type="submit" id="btn_sessions" name="btn_sessions" class="btn btn-green add-row">Submit</button>
                                             </h5>
                                         </div>
-                                </form>
                             </div>
                         </div>
                     </div>
@@ -361,6 +376,7 @@ $user_role = $this->session->userdata('role');
                 </div>
 
             </div>
+                </form>
         </div>
     </div>
 </div>
@@ -369,6 +385,38 @@ $user_role = $this->session->userdata('role');
 <script type="text/javascript">
     $(document).ready(function ()
     {
+
+        let stream_type = $( "#stream_type option:selected" ).val();
+        if (stream_type == 'millicast')
+        {
+            $('#millicast_name_div').show();
+            $('#iframe_code_div').hide();
+        }else if (stream_type == 'vimeo_iframe')
+        {
+            $('#millicast_name_div').hide();
+            $('#iframe_code_div').show();
+        }else{
+            $('#millicast_name_div').hide();
+            $('#iframe_code_div').show();
+        }
+
+        $('#stream_type').on('change', function() {
+            let type = this.value;
+
+            if (type == 'millicast')
+            {
+                $('#millicast_name_div').show();
+                $('#iframe_code_div').hide();
+            }else if (type == 'vimeo_iframe')
+            {
+                $('#millicast_name_div').hide();
+                $('#iframe_code_div').show();
+            }else{
+                $('#millicast_name_div').hide();
+                $('#iframe_code_div').show();
+            }
+        });
+
 
         $('input[readonly]').on('click', function () {
             alertify.error("You are not authorized to edit this field!");

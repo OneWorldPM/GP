@@ -276,7 +276,6 @@ class M_sessions extends CI_Model {
     function updateSessions() {
         $post = $this->input->post();
 
-
         $session_right_bar = "";
         if (isset($post["session_right_bar"])) {
             $session_right_bar = implode(",", $post["session_right_bar"]);
@@ -318,6 +317,8 @@ class M_sessions extends CI_Model {
             'zoom_password' => trim($post['zoom_password']),
             'time_slot' => date("H:i", strtotime($post['time_slot'])),
             'end_time' => date("H:i", strtotime($post['end_time'])),
+            'stream_type' => trim($post['stream_type']),
+            'millicast_stream_name' => trim($post['millicast_name']),
             'embed_html_code' => trim($post['embed_html_code']),
             'embed_html_code_presenter' => trim($post['embed_html_code_presenter']),
             'sessions_type_id' => $sessions_type_id,

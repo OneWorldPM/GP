@@ -3,7 +3,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap" rel="stylesheet">
 <style>
     body{
-        background-image: url(<?= base_url() ?>front_assets/images/FAUXSKO21/Forescout_FAUXSKO21_EXPO_PAGE_MOCKUP.png);
+        background-image: url(<?= base_url() ?>front_assets/gp/iStock_831812130_-_SMALL.jpg);
         background-attachment: fixed;
         background-size: cover !important;
         background-position: center center !important;
@@ -33,7 +33,8 @@
         <div class="text-middle">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="text-center m-t-0">
+                    <div class="text-center m-t-0" style="font-size: xx-large;color: #fff;text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;">
+                        Event Sponsors
                     </div>
                 </div>
                 <div class="col-md-12 m-t-30" style="text-align: -webkit-center; min-height: 500px;">

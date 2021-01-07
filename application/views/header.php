@@ -5,8 +5,8 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-        <link rel="shortcut icon" href="<?= base_url() ?>front_assets/images/FAUXSKO21/fauxsko_icon_transparent.png">
-        <title>Faux SKO 21</title>
+        <link rel="shortcut icon" href="<?= base_url() ?>front_assets/gp/gp-logo-white.png">
+        <title>Gravity Productions</title>
         <!-- Bootstrap Core CSS -->
         <link href="<?= base_url() ?>front_assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
         <link href="<?= base_url() ?>front_assets/vendor/fontawesome/css/font-awesome.min.css" type="text/css" rel="stylesheet">
@@ -238,14 +238,14 @@
                             $profile_data = $this->common->get_user_details($this->session->userdata('cid'));
                             ?>
                             <div id="logo">
-                                <a href="<?= base_url() ?>home" class="logo" data-dark-logo="<?= base_url() ?>front_assets/images/FAUXSKO21/fauxsko_icon_transparent.png" style="margin-top: 12px; cursor: pointer">
-                                    <img src="<?= base_url() ?>front_assets/images/FAUXSKO21/fauxsko_icon_transparent.png" alt="FAUX SKO 21">
+                                <a href="<?= base_url() ?>home" class="logo" data-dark-logo="<?= base_url() ?>front_assets/gp/gp-logo-white.png" style="margin-top: 12px; cursor: pointer">
+                                    <img src="<?= base_url() ?>front_assets/gp/gp-logo-white.png" alt="GP">
                                 </a>
                             </div>
                         <?php } else { ?>
                             <div id="logo">
-                                <a href="<?= base_url() ?>home" class="logo" data-dark-logo="<?= base_url() ?>front_assets/images/FAUXSKO21/fauxsko_icon_transparent.png">
-                                    <img src="<?= base_url() ?>front_assets/images/FAUXSKO21/fauxsko_icon_transparent.png" alt="FAUX SKO 21">
+                                <a href="<?= base_url() ?>home" class="logo" data-dark-logo="<?= base_url() ?>front_assets/gp/gp-logo-white.png">
+                                    <img src="<?= base_url() ?>front_assets/gp/gp-logo-white.png" alt="GP">
                                 </a>
                             </div>
                         <?php } ?>
@@ -281,7 +281,7 @@
                                         $profile_data = $this->common->get_user_details($this->session->userdata('cid'));
                                         ?>
                                         <ul class="main-menu nav navbar-nav navbar-right">
-                                            <?php if (1 == 2) { ?>
+                                            <?php if (1 == 1) { ?>
                                                 <li class="dropdown" style="margin-top: -9px;">
                                                     <a href="" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                                                         <?php if ($profile_data->profile != "") { ?>
@@ -301,17 +301,17 @@
                                                             <b style="padding: 10px 20px 10px 18px; color:#A9A9A9;"><?= $profile_data->email ?></b>
                                                         </li>
                                                         <li>
-                                                            <a href="<?= base_url() ?>register/user_profile/<?= $profile_data->cust_id ?>">
+                                                            <a href="<?= base_url() ?>register/user_profile/<?= $profile_data->cust_id ?>" style="color: #b5b5b5 !important;">
                                                                 EDIT PROFILE
                                                             </a>
                                                         </li>
                                                         <li>
-                                                            <a href="<?= base_url() ?>home/notes">
+                                                            <a href="<?= base_url() ?>home/notes" style="color: #b5b5b5 !important;">
                                                                 My Briefcase
                                                             </a>
                                                         </li>
                                                         <li>
-                                                            <a href="<?= base_url() ?>login/logout">
+                                                            <a href="<?= base_url() ?>login/logout" style="color: #b5b5b5 !important;">
                                                                 Log Out
                                                             </a>
                                                         </li>
@@ -320,8 +320,27 @@
                                             <?php } ?>
                                         </ul>
 
+                                        <style>
+                                            .badge-notify{
+                                                background:#727272;
+                                                position:relative;
+                                                top: 7px;
+                                                left: 52px;
+                                            }
+                                        </style>
+                                        <ul id="mainMenuItems" class="main-menu nav nav-pills navbar-right">
+                                            <li class="push-notification-icon nav-item avatar dropdown m-r-25">
+                                                <a class="nav-link dropdown-toggle waves-effect waves-light" id="navbarDropdownMenuLink-5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="padding: 0;">
+                                                    <span class="unread-msg-count badge badge-notify" style="font-size:10px;">0</span>
+                                                    <i class="fa fa-envelope" style="color:#8286C5;font-size: 25px;"></i>
+                                                </a>
+                                                <div class="unread-msgs-list dropdown-menu dropdown-menu-lg-right dropdown-secondary" aria-labelledby="navbarDropdownMenuLink-5" style="overflow-y: scroll; overflow-x: hidden; width: max-content; max-height: 360px;">
+                                                </div>
+                                            </li>
+                                        </ul>
+
                                         <ul class="main-menu nav navbar-nav navbar-right">
-                                            <li><a href="https://yourconference.live/support/submit_ticket" target="_blank">SUPPORT</a></li>
+                                            <li><a href="https://yourconference.live/support/submit_ticket" target="_blank">TECHNICAL SUPPORT</a></li>
                                         </ul>
 
                                         <ul class="main-menu nav navbar-nav navbar-right">
@@ -329,11 +348,15 @@
                                         </ul>
 
                                         <ul class="main-menu nav navbar-nav navbar-right">
-                                            <li><a href="<?= base_url() ?>sponsor">EXPO</a></li>
+                                            <li><a href="<?= base_url() ?>sponsor">EXHIBITS</a></li>
                                         </ul>
 
                                         <ul class="main-menu nav navbar-nav navbar-right">
                                             <li><a href="<?= base_url() ?>sessions">SESSIONS</a></li>
+                                        </ul>
+
+                                        <ul class="main-menu nav navbar-nav navbar-right">
+                                            <li><a href="<?= base_url() ?>home">LOBBY</a></li>
                                         </ul>
 
                                         <ul class="main-menu nav navbar-nav navbar-right">

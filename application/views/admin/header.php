@@ -356,7 +356,7 @@ $user_name = ucfirst($this->session->userdata('uname'));
                             <i class="ti-align-justify"></i>
                         </a>
                         <a class="navbar-brand" href="<?= base_url() ?>admin/dashboard">
-                            <img src="<?= base_url() ?>front_assets/images/FAUXSKO21/Forescout_Logo_CCPage.png" class="kent_logo" alt="Faux SKO 21 Logo" style="max-width: 200px"/>
+                            <img src="<?= base_url() ?>front_assets/gp/" class="kent_logo" alt="GP Logo" style="max-width: 200px"/>
                         </a>
                         <a href="#" class="sidebar-toggler pull-right visible-md visible-lg" data-toggle-class="app-sidebar-closed" data-toggle-target="#app">
                             <i class="ti-align-justify"></i>
