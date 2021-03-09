@@ -29,7 +29,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js" integrity="sha512-v8ng/uGxkge3d1IJuEo6dJP8JViyvms0cly9pnbfRxT6/31c3dRWxIiwGnMSWwZjHKOuY3EVmijs7k1jz/9bLA==" crossorigin="anonymous"></script>
 
 <script>
-    var user_id = <?= $this->session->userdata("cid") ?>;
+    var user_id = "<?= $this->session->userdata("cid") ?>";
     var user_name = "<?= $this->session->userdata('fullname') ?>";
     function extract(variable) {
         for (var key in variable) {
@@ -99,6 +99,14 @@
         $('.unread-msg-count').html('0');
         $('.unread-msgs-list').html('');
         $.get("<?= base_url() ?>user/UnreadMessages/getUnreadMessages", function (messages) {
+
+            if (/^[\],:{}\s]*$/.test(messages.replace(/\\["\\\/bfnrtu]/g, '@').
+            replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']').
+            replace(/(?:^|:|,)(?:\s*\[)+/g, '')))
+                var jsonIsGood;
+            else
+                return false;
+
             messages = JSON.parse(messages);
             var count = Object.keys(messages).length;
             if (count > 0) {

@@ -19,7 +19,7 @@ $presenter_details = $this->common->get_presenter_data($this->session->userdata(
     <meta content="" name="description" />
     <meta content="" name="author" />
     <!-- end: META -->
-    <link rel="icon" href="<?= base_url() ?>assets/images/favicon.png" type="image/png">
+    <link rel="icon" href="<?= base_url() ?>front_assets/gp/gp-logo-white.png" type="image/png">
     <!-- start: GOOGLE FONTS -->
     <link rel="stylesheet" href="<?= base_url() ?>assets/css/googlefonts.css">
     <!--<link href="https://fonts.googleapis.com/css?family=Lato:300,400,400italic,600,700|Raleway:300,400,500,600,700|Crete+Round:400italic" rel="stylesheet" type="text/css" />-->
@@ -40,7 +40,7 @@ $presenter_details = $this->common->get_presenter_data($this->session->userdata(
     <!-- end: CLIP-TWO CSS -->
     <!-- start: CSS REQUIRED FOR THIS PAGE ONLY -->
     <!-- end: CSS REQUIRED FOR THIS PAGE ONLY -->
-    <link rel="stylesheet" type="text/css" href="<?= base_url() ?>front_assets/css/custom.css?v=2" media="screen" />
+    <link rel="stylesheet" type="text/css" href="<?= base_url() ?>front_assets/css/custom.css" media="screen" />
 
     <link href="<?= base_url() ?>assets/vendor/select2/select2.min.css" rel="stylesheet" media="screen">
     <link href="<?= base_url() ?>assets/vendor/DataTables/css/DT_bootstrap.css" rel="stylesheet" media="screen">
@@ -65,7 +65,7 @@ $presenter_details = $this->common->get_presenter_data($this->session->userdata(
     <!-- <script type="text/javascript" src="assets/toggel/js/on-off-switch.js"></script> -->
     <!-- <script type="text/javascript" src="assets/toggel/js/on-off-switch-onload.js"></script> -->
     <script src="<?= base_url() ?>front_assets/js/custom.js?v=3"></script>
-<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js" integrity="sha512-v8ng/uGxkge3d1IJuEo6dJP8JViyvms0cly9pnbfRxT6/31c3dRWxIiwGnMSWwZjHKOuY3EVmijs7k1jz/9bLA==" crossorigin="anonymous"></script>-->
+    <!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js" integrity="sha512-v8ng/uGxkge3d1IJuEo6dJP8JViyvms0cly9pnbfRxT6/31c3dRWxIiwGnMSWwZjHKOuY3EVmijs7k1jz/9bLA==" crossorigin="anonymous"></script>-->
 
     <?=getSocketScript()?>
 
@@ -108,31 +108,31 @@ $presenter_details = $this->common->get_presenter_data($this->session->userdata(
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="#">
-            <img src="https://yourconference.live/CCO/front_assets/images/CCO_CORP_Logo_310wide.png" width="175">
-        </a>
+        <img src="<?= base_url() ?>front_assets/gp/GP_logo_dark.png" style="width: 110px">
+        <div class="navbar-brand">
+        </div>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
 
         <ul class="nav navbar-nav navbar-right">
-            <li><a href="<?= base_url() ?>presenter/sessions">Mis Sesiones</a></li>
+            <li><a href="<?= base_url() ?>presenter/sessions">MY SESSIONS</a></li>
 
-            <li class="active"><a data-toggle="modal" data-target="#zoomModal">Zoom</a></li>
-            <li><a href="<?= base_url() ?>presenter/sessions/view_poll/<?= $sessions->sessions_id ?>" target="_blank">Encuesta</a></li>
+            <li class="active"><a data-toggle="modal" data-target="#zoomModal">ZOOM</a></li>
+            <li><a href="<?= base_url() ?>presenter/sessions/view_poll/<?= $sessions->sessions_id ?>" target="_blank">POLLS</a></li>
             <?php
             if(sessionRightBarControl($sessions->right_bar, "resources")){
                 ?>
-                <li><a data-toggle="modal" data-target="#reourcesModal">Recursos</a></li>
+                <li><a data-toggle="modal" data-target="#reourcesModal">RESOURCES</a></li>
                 <?php
             }
             ?>
-            <li><a href="https://yourconference.live/support/submit_ticket" target="_blank">Assistance</a></li>
+            <li><a href="https://yourconference.live/support" target="_blank">HELP DESK</a></li>
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#"><?= $this->session->userdata('pname') ?> <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li>
                         <a href="<?= base_url() ?>presenter/login/logout">
-                            Cerrar Sesión
+                            Log Out
                         </a>
                     </li>
                 </ul>
@@ -149,7 +149,7 @@ $presenter_details = $this->common->get_presenter_data($this->session->userdata(
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Zoom</h4>
+                <h4 class="modal-title">ZOOM</h4>
             </div>
             <div class="modal-body">
                 <?php
@@ -160,14 +160,14 @@ $presenter_details = $this->common->get_presenter_data($this->session->userdata(
                     ?>
                     <p>Zoom Meeting Link : <a href="<?=$zoom_link?>" target="_blank"><?=$zoom_link?></a></p>
                     <p>Password : <?=$zoom_pass?></p>
-                <?php
+                    <?php
                 }
                 ?>
 
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
             </div>
         </div>
 
@@ -182,7 +182,7 @@ $presenter_details = $this->common->get_presenter_data($this->session->userdata(
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Recursos</h4>
+                <h4 class="modal-title">RESOURCES</h4>
             </div>
             <div class="modal-body">
                 <?php
@@ -199,7 +199,7 @@ $presenter_details = $this->common->get_presenter_data($this->session->userdata(
                 ?>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
             </div>
         </div>
 

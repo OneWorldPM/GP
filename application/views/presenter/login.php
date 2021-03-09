@@ -12,7 +12,7 @@
         <meta content="" name="description"/>
         <meta content="" name="author"/>
         <!-- end: META -->
-        <link rel="icon" href="<?= base_url() ?>assets/images/favicon.png" type="image/png">
+        <link rel="icon" href="<?= base_url() ?>front_assets/gp/gp-logo-white.png" type="image/png">
         <!-- start: GOOGLE FONTS -->
         <link href="https://fonts.googleapis.com/css?family=Lato:300,400,400italic,600,700|Raleway:300,400,500,600,700|Crete+Round:400italic" rel="stylesheet" type="text/css" />
         <!-- end: GOOGLE FONTS -->
@@ -72,32 +72,32 @@
                 <div class="box-login">
                     <form class="form-login" id="frm_login" name="frm_login" method="post" action="<?= base_url() ?>presenter/login/authentication">
                         <div class="row">
-                            <div  style="text-align: center;">                           
-                                <img src="<?= base_url() ?>assets/images/logo.png" alt="" style="text-align: center;" >
+                            <div  style="text-align: center;background-color: black;">
+                                <img src="<?= base_url() ?>front_assets/gp/gp-logo-white.png" alt="" style="text-align: center; width: 70px" >
                             </div>
                         </div>
                         <fieldset>
                             <?php
                             echo ($this->session->flashdata('msg')) ? $this->session->flashdata('msg') : '';
                             ?> 
-                            <h4 class="box-title">Credenciales de el Presentador</h4>
+                            <h4 class="box-title">Presenters Login</h4>
                             <div class="form-group">
                                 <span class="input-icon">
-                                    <input type="text" class="form-control" id="email" name="email" placeholder="Entrar Correo Electronico">
+                                    <input type="text" class="form-control" id="email" name="email" placeholder="Enter Email Address">
                                     <i class="fa fa-user"></i> 
                                 </span><span id="erroremail" style="color:red"></span>
                             </div>
                             <div class="form-group form-actions">
                                 <span class="input-icon">
-                                    <input type="password" class="form-control" id="password" name="password" placeholder="Entrar contraseña">
+                                    <input type="password" class="form-control" id="password" name="password" placeholder="Enter Password">
                                     <i class="fa fa-lock"></i>
                                 </span><span id="errorpassword" style="color:red"></span>
                             </div>
                             <div class="form-actions" style="padding-left: 20px;">
                                 <button type="submit" class="btn btn-primary" id="btn_login">
-                                    Entrar Sesión
+                                    Login
                                 </button>
-                                <span><a href="forgotpassword">Olvido la contraseña</a></span>
+                                <span><a href="forgotpassword">Forgot Password</a></span>
                             </div>
                         </fieldset>
                     </form>

@@ -8,338 +8,338 @@ socket.emit("getSessionViewUsers", app_name, function (resp) {
     }
 })
 
-    $(document).ready(function () {
-        var $iframe = $("#embed_html_code_section iframe");
+$(document).ready(function () {
+    var $iframe = $("#embed_html_code_section iframe");
 
-        $iframe.css("height", "100%")
+    $iframe.css("height", "100%")
 
 
-        if ($iframe.attr("width") == "1280") {
-            $iframe.css("width", "100%")
-            if (window.innerWidth <= 991) {
-                $("#rightOrder").css("margin-top", "185px");
+    if ($iframe.attr("width") == "1280") {
+        $iframe.css("width", "100%")
+        if (window.innerWidth <= 991) {
+            $("#rightOrder").css("margin-top", "185px");
+        }
+    }
+
+    $(document).on("click", "#btn_view_poll", function () {
+        $("#view_poll_table").show();
+    });
+
+    $(".visible-md").click();
+    get_question_list();
+    //setInterval(get_question_list, 4000);
+
+    get_favorite_question_list();
+    //setInterval(get_favorite_question_list, 5000);
+
+    get_poll_vot_section();
+    //setInterval(get_poll_vot_section, 1000);
+
+    $(document).on("click", "#thumbs_down", function () {
+        var value = $(this).attr("data-title_name");
+        var questions = $("#message").val();
+        if (questions != "") {
+            $("#message").val(questions + ' ' + value);
+        }
+        else {
+            $("#message").val(value);
+        }
+    });
+
+    $(document).on("click", "#sad", function () {
+        var value = $(this).attr("data-title_name");
+        var questions = $("#message").val();
+        if (questions != "") {
+            $("#message").val(questions + ' ' + value);
+        }
+        else {
+            $("#message").val(value);
+        }
+    });
+
+    $(document).on("click", "#clapping", function () {
+        var value = $(this).attr("data-title_name");
+        var send_message = $("#message").val();
+        if (send_message != "") {
+            $("#message").val(send_message + ' ' + value);
+        }
+        else {
+            $("#message").val(value);
+        }
+    });
+
+    $(document).on("click", "#happy", function () {
+        var value = $(this).attr("data-title_name");
+        var send_message = $("#message").val();
+        if (send_message != "") {
+            $("#message").val(send_message + ' ' + value);
+        }
+        else {
+            $("#message").val(value);
+        }
+    });
+
+    $(document).on("click", "#laughing", function () {
+        var value = $(this).attr("data-title_name");
+        var send_message = $("#message").val();
+        if (send_message != "") {
+            $("#message").val(send_message + ' ' + value);
+        }
+        else {
+            $("#message").val(value);
+        }
+    });
+
+    $(document).on("click", "#thumbs_up", function () {
+        var value = $(this).attr("data-title_name");
+        var send_message = $("#message").val();
+        if (send_message != "") {
+            $("#message").val(send_message + ' ' + value);
+        }
+        else {
+            $("#message").val(value);
+        }
+    });
+
+    $("#resource_display_status").show();
+    $(document).on("click", "#resource_show", function () {
+        var resource_show_status = $("#resource_show").attr("data-resource_show_status");
+        if (resource_show_status == 0) {
+            $("#resource_display_status").show();
+            $("#resource_show").removeClass('fa-caret-right');
+            $("#resource_show").addClass('fa-caret-down');
+            $("#resource_show").attr('data-resource_show_status', 1);
+        }
+        else {
+            $("#resource_display_status").hide();
+            $("#resource_show").addClass('fa-caret-right');
+            $("#resource_show").removeClass('fa-caret-down');
+            $("#resource_show").attr('data-resource_show_status', 0);
+        }
+    });
+
+    $("#emojis_section").hide();
+    $(document).on("click", "#emjis_section_show", function () {
+        var emjis_section_show_status = $("#emjis_section_show").attr("data-emjis_section_show_status");
+        if (emjis_section_show_status == 0) {
+            $("#emojis_section").show();
+            $("#emjis_section_show").attr('data-emjis_section_show_status', 1);
+        }
+        else {
+            $("#emojis_section").hide();
+            $("#emjis_section_show").attr('data-emjis_section_show_status', 0);
+        }
+    });
+
+    $(document).on("click", ".cust_class_star", function () {
+        var sessions_cust_question_id = $(this).attr("data-sessions_cust_question_id");
+        var sessions_id = $("#sessions_id").val();
+        $(this).removeClass("cust_class_star fa fa-star-o");
+        $(this).addClass("cust_class_star_remove fa fa-star");
+        $.ajax({
+            url: base_url+"presenter/sessions/likeQuestion",
+            type: "post",
+            data: {'sessions_id': sessions_id, 'sessions_cust_question_id': sessions_cust_question_id},
+            dataType: "json",
+            success: function (data) {
+                socket.emit('presenter_like_questions',{
+                    "app_name":app_name,
+                    "type":"like",
+                    "question":data["data"],
+                });
+            }
+        });
+    });
+    socket.on("presenter_like_questions",function (data){
+        if(data){
+            var question_app_name=data["app_name"];
+            var question_type=data["type"];
+            var question=data["question"];
+
+            if(question_app_name==app_name){
+                if(question_type=="like"){
+                    $('#favorite_question_list').prepend(questionFavoriteElement(question.tbl_favorite_question_id,question));
+
+                }else{
+                    var tbl_favorite_question_id=question["tbl_favorite_question_id"];
+                    $("#fav_question_list_key_"+tbl_favorite_question_id).remove();
+                }
             }
         }
 
-        $(document).on("click", "#btn_view_poll", function () {
-            $("#view_poll_table").show();
-        });
-
-        $(".visible-md").click();
-        get_question_list();
-        //setInterval(get_question_list, 4000);
-
-        get_favorite_question_list();
-        //setInterval(get_favorite_question_list, 5000);
-
-        get_poll_vot_section();
-        //setInterval(get_poll_vot_section, 1000);
-
-        $(document).on("click", "#thumbs_down", function () {
-            var value = $(this).attr("data-title_name");
-            var questions = $("#message").val();
-            if (questions != "") {
-                $("#message").val(questions + ' ' + value);
-            }
-            else {
-                $("#message").val(value);
-            }
-        });
-
-        $(document).on("click", "#sad", function () {
-            var value = $(this).attr("data-title_name");
-            var questions = $("#message").val();
-            if (questions != "") {
-                $("#message").val(questions + ' ' + value);
-            }
-            else {
-                $("#message").val(value);
-            }
-        });
-
-        $(document).on("click", "#clapping", function () {
-            var value = $(this).attr("data-title_name");
-            var send_message = $("#message").val();
-            if (send_message != "") {
-                $("#message").val(send_message + ' ' + value);
-            }
-            else {
-                $("#message").val(value);
-            }
-        });
-
-        $(document).on("click", "#happy", function () {
-            var value = $(this).attr("data-title_name");
-            var send_message = $("#message").val();
-            if (send_message != "") {
-                $("#message").val(send_message + ' ' + value);
-            }
-            else {
-                $("#message").val(value);
-            }
-        });
-
-        $(document).on("click", "#laughing", function () {
-            var value = $(this).attr("data-title_name");
-            var send_message = $("#message").val();
-            if (send_message != "") {
-                $("#message").val(send_message + ' ' + value);
-            }
-            else {
-                $("#message").val(value);
-            }
-        });
-
-        $(document).on("click", "#thumbs_up", function () {
-            var value = $(this).attr("data-title_name");
-            var send_message = $("#message").val();
-            if (send_message != "") {
-                $("#message").val(send_message + ' ' + value);
-            }
-            else {
-                $("#message").val(value);
-            }
-        });
-
-        $("#resource_display_status").show();
-        $(document).on("click", "#resource_show", function () {
-            var resource_show_status = $("#resource_show").attr("data-resource_show_status");
-            if (resource_show_status == 0) {
-                $("#resource_display_status").show();
-                $("#resource_show").removeClass('fa-caret-right');
-                $("#resource_show").addClass('fa-caret-down');
-                $("#resource_show").attr('data-resource_show_status', 1);
-            }
-            else {
-                $("#resource_display_status").hide();
-                $("#resource_show").addClass('fa-caret-right');
-                $("#resource_show").removeClass('fa-caret-down');
-                $("#resource_show").attr('data-resource_show_status', 0);
-            }
-        });
-
-        $("#emojis_section").hide();
-        $(document).on("click", "#emjis_section_show", function () {
-            var emjis_section_show_status = $("#emjis_section_show").attr("data-emjis_section_show_status");
-            if (emjis_section_show_status == 0) {
-                $("#emojis_section").show();
-                $("#emjis_section_show").attr('data-emjis_section_show_status', 1);
-            }
-            else {
-                $("#emojis_section").hide();
-                $("#emjis_section_show").attr('data-emjis_section_show_status', 0);
-            }
-        });
-
-        $(document).on("click", ".cust_class_star", function () {
-            var sessions_cust_question_id = $(this).attr("data-sessions_cust_question_id");
-            var sessions_id = $("#sessions_id").val();
-            $(this).removeClass("cust_class_star fa fa-star-o");
-            $(this).addClass("cust_class_star_remove fa fa-star");
-            $.ajax({
-                url: base_url+"presenter/sessions/likeQuestion",
-                type: "post",
-                data: {'sessions_id': sessions_id, 'sessions_cust_question_id': sessions_cust_question_id},
-                dataType: "json",
-                success: function (data) {
-                    socket.emit('presenter_like_questions',{
-                        "app_name":app_name,
-                        "type":"like",
-                        "question":data["data"],
-                    });
-                }
-            });
-        });
-        socket.on("presenter_like_questions",function (data){
-            if(data){
-                var question_app_name=data["app_name"];
-                var question_type=data["type"];
-                var question=data["question"];
-
-                if(question_app_name==app_name){
-                    if(question_type=="like"){
-                        $('#favorite_question_list').prepend(questionFavoriteElement(question.tbl_favorite_question_id,question));
-
-                    }else{
-                        var tbl_favorite_question_id=question["tbl_favorite_question_id"];
-                        $("#fav_question_list_key_"+tbl_favorite_question_id).remove();
-                    }
-                }
-            }
-
-        })
+    })
 
 
-        $(document).on("click", ".cust_class_star_remove", function () {
-            var sessions_cust_question_id = $(this).attr("data-sessions_cust_question_id");
-            var sessions_id = $("#sessions_id").val();
-            $(this).removeClass("cust_class_star_remove fa fa-star");
-            $(this).addClass("cust_class_star fa fa-star-o");
-            $.ajax({
-                url: base_url+"presenter/sessions/likeQuestion",
-                type: "post",
-                data: {'sessions_id': sessions_id, 'sessions_cust_question_id': sessions_cust_question_id},
-                dataType: "json",
-                success: function (data) {
-                    socket.emit('presenter_like_questions',{
-                        "app_name":app_name,
-                        "type":"unlike",
-                        "question":data["data"],
-                    });
-                }
-            });
-        });
-
-
-        $(document).on("click", ".btn_publish", function () {
-            $(this).prop('disabled', true);
-            var answer_btn_id = $(this).attr("data-answer_btn");
-            var q_answer = $("#" + answer_btn_id).val();
-            var sessions_cust_question_id = $("#" + answer_btn_id).attr("data-last_id");
-            if (q_answer != "") {
-                $.ajax({
-                    url: base_url+"presenter/sessions/addQuestionAnswer",
-                    type: "post",
-                    data: {'q_answer': q_answer, 'sessions_cust_question_id': sessions_cust_question_id},
-                    dataType: "json",
-                    success: function (data) {
-                        if (data.status == "success") {
-                            $("#" + answer_btn_id).attr('readonly', true);
-                            alertify.success('Answer Successfully Added');
-                        }
-                    }
+    $(document).on("click", ".cust_class_star_remove", function () {
+        var sessions_cust_question_id = $(this).attr("data-sessions_cust_question_id");
+        var sessions_id = $("#sessions_id").val();
+        $(this).removeClass("cust_class_star_remove fa fa-star");
+        $(this).addClass("cust_class_star fa fa-star-o");
+        $.ajax({
+            url: base_url+"presenter/sessions/likeQuestion",
+            type: "post",
+            data: {'sessions_id': sessions_id, 'sessions_cust_question_id': sessions_cust_question_id},
+            dataType: "json",
+            success: function (data) {
+                socket.emit('presenter_like_questions',{
+                    "app_name":app_name,
+                    "type":"unlike",
+                    "question":data["data"],
                 });
             }
-            else {
-                alertify.error('Please enter answer');
-            }
         });
-
-        $(document).on("click", ".open_poll", function () {
-            var sessions_poll_question_id = $(this).attr("data-sessions_poll_question_id");
-            if (sessions_poll_question_id != "") {
-                $.ajax({
-                    url: base_url+"presenter/sessions/open_poll_ajax",
-                    type: "post",
-                    data: {'sessions_poll_question_id': sessions_poll_question_id},
-                    dataType: "json",
-                    success: function (data) {
-                        if (data.status == "success") {
-                            sessionStorage.reloadAfterPageLoad = "1";
-                            window.location.reload();
-                        }
-                        else {
-                            alertify.error('Already opened other poll..!');
-                        }
-                    }
-                });
-            }
-            else {
-                alertify.error('Something went wrong, Please try again');
-            }
-        });
-
-        $(document).on("click", ".close_poll", function () {
-            var sessions_poll_question_id = $(this).attr("data-sessions_poll_question_id");
-            if (sessions_poll_question_id != "") {
-                $.ajax({
-                    url: base_url+"presenter/sessions/close_poll_ajax",
-                    type: "post",
-                    data: {'sessions_poll_question_id': sessions_poll_question_id},
-                    dataType: "json",
-                    success: function (data) {
-                        if (data.status == "success") {
-                            sessionStorage.reloadAfterPageLoad = "1";
-                            window.location.reload();
-                        }
-                        else {
-                            alertify.error('Already opened other poll..!');
-                        }
-                    }
-                });
-            }
-            else {
-                alertify.error('Something went wrong, Please try again');
-            }
-        });
-
-        $(document).on("click", ".show_results", function () {
-            var sessions_poll_question_id = $(this).attr("data-sessions_poll_question_id");
-            if (sessions_poll_question_id != "") {
-                $.ajax({
-                    url: base_url+"presenter/sessions/show_result_ajax",
-                    type: "post",
-                    data: {'sessions_poll_question_id': sessions_poll_question_id},
-                    dataType: "json",
-                    success: function (data) {
-                        if (data.status == "success") {
-                            sessionStorage.reloadAfterPageLoad = "1";
-                            window.location.reload();
-                        }
-                        else {
-                            alertify.error('Already opened other poll..!');
-                        }
-                    }
-                });
-            }
-            else {
-                alertify.error('Something went wrong, Please try again');
-            }
-        });
-
-        $(document).on("click", ".close_results", function () {
-            var sessions_poll_question_id = $(this).attr("data-sessions_poll_question_id");
-            if (sessions_poll_question_id != "") {
-                $.ajax({
-                    url: base_url+"presenter/sessions/close_result_ajax",
-                    type: "post",
-                    data: {'sessions_poll_question_id': sessions_poll_question_id},
-                    dataType: "json",
-                    success: function (data) {
-                        if (data.status == "success") {
-                            sessionStorage.reloadAfterPageLoad = "1";
-                            window.location.reload();
-                        }
-                        else {
-                            alertify.error('Already opened other poll..!');
-                        }
-                    }
-                });
-            }
-            else {
-                alertify.error('Something went wrong, Please try again');
-            }
-        });
-
-        $(document).on("click", ".start_timer", function () {
-            var sessions_poll_question_id = $(this).attr("data-sessions_poll_question_id");
-            if (sessions_poll_question_id != "") {
-                $.ajax({
-                    url: base_url+"presenter/sessions/start_timer_ajax",
-                    type: "post",
-                    data: {'sessions_poll_question_id': sessions_poll_question_id},
-                    dataType: "json",
-                    success: function (data) {
-                        if (data.status == "success") {
-                            sessionStorage.reloadAfterPageLoad = "1";
-                            window.location.reload();
-                        }
-                        else {
-                            alertify.error('Something went wrong, Please try again');
-                        }
-                    }
-                });
-            }
-            else {
-                alertify.error('Something went wrong, Please try again');
-            }
-        });
-
-        setTimeout(function () {
-            $('.app-navbar-fixed').addClass('app-sidebar-closed')
-        }, 3000);
-
     });
+
+
+    $(document).on("click", ".btn_publish", function () {
+        $(this).prop('disabled', true);
+        var answer_btn_id = $(this).attr("data-answer_btn");
+        var q_answer = $("#" + answer_btn_id).val();
+        var sessions_cust_question_id = $("#" + answer_btn_id).attr("data-last_id");
+        if (q_answer != "") {
+            $.ajax({
+                url: base_url+"presenter/sessions/addQuestionAnswer",
+                type: "post",
+                data: {'q_answer': q_answer, 'sessions_cust_question_id': sessions_cust_question_id},
+                dataType: "json",
+                success: function (data) {
+                    if (data.status == "success") {
+                        $("#" + answer_btn_id).attr('readonly', true);
+                        alertify.success('Answer Successfully Added');
+                    }
+                }
+            });
+        }
+        else {
+            alertify.error('Please enter answer');
+        }
+    });
+
+    $(document).on("click", ".open_poll", function () {
+        var sessions_poll_question_id = $(this).attr("data-sessions_poll_question_id");
+        if (sessions_poll_question_id != "") {
+            $.ajax({
+                url: base_url+"presenter/sessions/open_poll_ajax",
+                type: "post",
+                data: {'sessions_poll_question_id': sessions_poll_question_id},
+                dataType: "json",
+                success: function (data) {
+                    if (data.status == "success") {
+                        sessionStorage.reloadAfterPageLoad = "1";
+                        window.location.reload();
+                    }
+                    else {
+                        alertify.error('Already opened other poll..!');
+                    }
+                }
+            });
+        }
+        else {
+            alertify.error('Something went wrong, Please try again');
+        }
+    });
+
+    $(document).on("click", ".close_poll", function () {
+        var sessions_poll_question_id = $(this).attr("data-sessions_poll_question_id");
+        if (sessions_poll_question_id != "") {
+            $.ajax({
+                url: base_url+"presenter/sessions/close_poll_ajax",
+                type: "post",
+                data: {'sessions_poll_question_id': sessions_poll_question_id},
+                dataType: "json",
+                success: function (data) {
+                    if (data.status == "success") {
+                        sessionStorage.reloadAfterPageLoad = "1";
+                        window.location.reload();
+                    }
+                    else {
+                        alertify.error('Already opened other poll..!');
+                    }
+                }
+            });
+        }
+        else {
+            alertify.error('Something went wrong, Please try again');
+        }
+    });
+
+    $(document).on("click", ".show_results", function () {
+        var sessions_poll_question_id = $(this).attr("data-sessions_poll_question_id");
+        if (sessions_poll_question_id != "") {
+            $.ajax({
+                url: base_url+"presenter/sessions/show_result_ajax",
+                type: "post",
+                data: {'sessions_poll_question_id': sessions_poll_question_id},
+                dataType: "json",
+                success: function (data) {
+                    if (data.status == "success") {
+                        sessionStorage.reloadAfterPageLoad = "1";
+                        window.location.reload();
+                    }
+                    else {
+                        alertify.error('Already opened other poll..!');
+                    }
+                }
+            });
+        }
+        else {
+            alertify.error('Something went wrong, Please try again');
+        }
+    });
+
+    $(document).on("click", ".close_results", function () {
+        var sessions_poll_question_id = $(this).attr("data-sessions_poll_question_id");
+        if (sessions_poll_question_id != "") {
+            $.ajax({
+                url: base_url+"presenter/sessions/close_result_ajax",
+                type: "post",
+                data: {'sessions_poll_question_id': sessions_poll_question_id},
+                dataType: "json",
+                success: function (data) {
+                    if (data.status == "success") {
+                        sessionStorage.reloadAfterPageLoad = "1";
+                        window.location.reload();
+                    }
+                    else {
+                        alertify.error('Already opened other poll..!');
+                    }
+                }
+            });
+        }
+        else {
+            alertify.error('Something went wrong, Please try again');
+        }
+    });
+
+    $(document).on("click", ".start_timer", function () {
+        var sessions_poll_question_id = $(this).attr("data-sessions_poll_question_id");
+        if (sessions_poll_question_id != "") {
+            $.ajax({
+                url: base_url+"presenter/sessions/start_timer_ajax",
+                type: "post",
+                data: {'sessions_poll_question_id': sessions_poll_question_id},
+                dataType: "json",
+                success: function (data) {
+                    if (data.status == "success") {
+                        sessionStorage.reloadAfterPageLoad = "1";
+                        window.location.reload();
+                    }
+                    else {
+                        alertify.error('Something went wrong, Please try again');
+                    }
+                }
+            });
+        }
+        else {
+            alertify.error('Something went wrong, Please try again');
+        }
+    });
+
+    setTimeout(function () {
+        $('.app-navbar-fixed').addClass('app-sidebar-closed')
+    }, 3000);
+
+});
 
 function get_question_list() {
     var sessions_id = $("#sessions_id").val();
@@ -491,7 +491,7 @@ function get_poll_vot_section() {
                     });
                     if (data.result.poll_status == 1) {
                         $("#poll_vot_section").html("<form id='frm_reg' name='frm_reg' method='post' action=''>\n\
-            \n\<h2 style='border:1px solid #b79700;margin-bottom: 0px; color: gray; font-weight: 700;font-size: 15px; padding: 5px 5px 5px 10px; background-color: #efe4b0; text-transform: uppercase;'>Encuesta en Vivo</h2>\n\
+            \n\<h2 style='border:1px solid #b79700;margin-bottom: 0px; color: gray; font-weight: 700;font-size: 15px; padding: 5px 5px 5px 10px; background-color: #efe4b0; text-transform: uppercase;'>Live Poll</h2>\n\
 <div class='col-md-12'>\n\
 \n\<h5 style='letter-spacing: 0px; padding-top: 10px; font-size: 13px; border-bottom: 1px solid #b1b1b1; padding-bottom: 10px;'>" + data.result.question + "</h5></div>\n\
 \n\<input type='hidden' id='sessions_poll_question_id' value='" + data.result.sessions_poll_question_id + "'>\n\
@@ -523,7 +523,7 @@ function get_poll_vot_section() {
                         }
                     }
                     else {
-                        $("#poll_vot_section").html("<div class='row'><div class='col-md-12'><h2 style='border: 1px solid #b79700;margin-bottom: 0px; color: gray; font-weight: 700;font-size: 15px; padding: 5px 5px 5px 10px; background-color: #efe4b0; text-transform: uppercase;'>Resultados de Encuesta en Vivo</h2></div><div class='col-md-12'><div class='col-md-12'><h5 style='letter-spacing: 0px; padding-top: 10px; font-size: 13px; border-bottom: 1px solid #b1b1b1; padding-bottom: 10px;'>" + data.result.question + "</h5>\n\
+                        $("#poll_vot_section").html("<div class='row'><div class='col-md-12'><h2 style='border: 1px solid #b79700;margin-bottom: 0px; color: gray; font-weight: 700;font-size: 15px; padding: 5px 5px 5px 10px; background-color: #efe4b0; text-transform: uppercase;'>Live Poll Results</h2></div><div class='col-md-12'><div class='col-md-12'><h5 style='letter-spacing: 0px; padding-top: 10px; font-size: 13px; border-bottom: 1px solid #b1b1b1; padding-bottom: 10px;'>" + data.result.question + "</h5>\n\
                                                         \n\<div id='result_section' style='padding-bottom: 10px;'></div></div></div></div>\n\
 ");
                         var total_vote = 0;
@@ -647,17 +647,42 @@ function get_group_chat_section_status() {
     });
 }
 
-    $(document).ready(function () {
-        getMessage();
-        //setInterval(getMessage, 1000);
-        setTimeout(function () {
-            $(".wrap-messages").css('max-height', '340px');
-        }, 300);
+$(document).ready(function () {
+    getMessage();
+    //setInterval(getMessage, 1000);
+    setTimeout(function () {
+        $(".wrap-messages").css('max-height', '340px');
+    }, 300);
 
-        get_group_chat_section_status();
-        //setInterval(get_group_chat_section_status, 10000);
+    get_group_chat_section_status();
+    //setInterval(get_group_chat_section_status, 10000);
 
-        $('#send').click(function () {
+    $('#send').click(function () {
+        if ($('#message').val() != "") {
+            $("#emojis_section").hide();
+            $("#emjis_section_show").attr('data-emjis_section_show_status', 0);
+            $.ajax({
+                url: site_url+"presenter/groupchat/send",
+                type: "post",
+                data: {'message': $('#message').val(), 'sessions_group_chat_id': $('#sessions_group_chat_id').val(), 'sessions_id': $('#sessions_id').val()},
+                success: function (data, textStatus, jqXHR) {
+                    socket.emit('session_new_message', app_name);
+                    $('#message').val('');
+                    $('.allmessage').html(data);
+                    var height = document.getElementById('allmessage').scrollHeight; - $('#allmessage').height();
+                    $('#allmessage').scrollTop(height);
+                }
+            });
+        }
+        else {
+            alertify.error('Write Message');
+        }
+    });
+
+    $('#message').keypress(function (e) {
+        var key = e.which;
+        if (key == 13)  // the enter key code
+        {
             if ($('#message').val() != "") {
                 $("#emojis_section").hide();
                 $("#emjis_section_show").attr('data-emjis_section_show_status', 0);
@@ -677,35 +702,10 @@ function get_group_chat_section_status() {
             else {
                 alertify.error('Write Message');
             }
-        });
-
-        $('#message').keypress(function (e) {
-            var key = e.which;
-            if (key == 13)  // the enter key code
-            {
-                if ($('#message').val() != "") {
-                    $("#emojis_section").hide();
-                    $("#emjis_section_show").attr('data-emjis_section_show_status', 0);
-                    $.ajax({
-                        url: site_url+"presenter/groupchat/send",
-                        type: "post",
-                        data: {'message': $('#message').val(), 'sessions_group_chat_id': $('#sessions_group_chat_id').val(), 'sessions_id': $('#sessions_id').val()},
-                        success: function (data, textStatus, jqXHR) {
-                            socket.emit('session_new_message', app_name);
-                            $('#message').val('');
-                            $('.allmessage').html(data);
-                            var height = document.getElementById('allmessage').scrollHeight; - $('#allmessage').height();
-                            $('#allmessage').scrollTop(height);
-                        }
-                    });
-                }
-                else {
-                    alertify.error('Write Message');
-                }
-            }
-        });
-
+        }
     });
+
+});
 
 function play_music() {
     var audio = document.getElementById("audio");
@@ -781,110 +781,114 @@ $(function () {
     }
 });
 
-    $(document).ready(function () {
-        function timeleft() {
-            // Set the date we're counting down to
-            var countDownDate = new Date(session_end_datetime).getTime();
+$(document).ready(function () {
+    function timeleft() {
+        // Set the date we're counting down to
+        var countDownDate = new Date(session_end_datetime).getTime();
 
-            // Update the count down every 1 second
-            var x = setInterval(function () {
+        // Update the count down every 1 second
+        var x = setInterval(function () {
 
-                // Get today's date and time
-                var now = new Date().getTime();
+            // Get today's date and time
+            var now = new Date().getTime();
 
-                // Find the distance between now and the count down date
-                var distance = countDownDate - now;
+            // Find the distance between now and the count down date
+            var distance = countDownDate - now;
 
-                // Time calculations for days, hours, minutes and seconds
-                var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            // Time calculations for days, hours, minutes and seconds
+            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-                var timer_string = seconds + "s ";
-                if (minutes != 0)
-                    timer_string = minutes + "m " + timer_string;
-                if (hours != 0)
-                    timer_string = hours + "h " + timer_string;
-                if (days != 0)
-                    timer_string = days + "d " + timer_string;
-                timer_string = "Tiempo Restante : "+timer_string;
+            var timer_string = seconds + "s ";
+            if (minutes != 0)
+                timer_string = minutes + "m " + timer_string;
+            if (hours != 0)
+                timer_string = hours + "h " + timer_string;
+            if (days != 0 && days)
+                timer_string = days + "d " + timer_string;
+            timer_string = "time left: "+timer_string;
 
-                // Display the result in the element with id="demo"
-                //$('#quiz-time-left').html('Time Left: '+hours + "h " + minutes + "m " + seconds + "s ");
-                //console.log('Time Left: '+hours + "h " + minutes + "m " + seconds + "s ");
-                $('#id_day_time_clock').text(timer_string);
+            // Display the result in the element with id="demo"
+            //$('#quiz-time-left').html('Time Left: '+hours + "h " + minutes + "m " + seconds + "s ");
+            //console.log('Time Left: '+hours + "h " + minutes + "m " + seconds + "s ");
+            $('#id_day_time_clock').text(timer_string);
 
-                // If the count down is finished,
-                if (distance < 0) {
-                    clearInterval(x);
-                    $('#id_day_time_clock').text('Tiempo Restante: 0s');
-                    $('#id_day_time_clock').css('color', '#d30e0e')
-                }
-            }, 1000);
-        }
+            // If the count down is finished,
+            if (distance < 0) {
+                clearInterval(x);
+                $('#id_day_time_clock').text('Time Left: 0s');
+                $('#id_day_time_clock').css('color', '#d30e0e')
+            }
+        }, 1000);
+    }
 
-        function timeToStart() {
-            // Set the date we're counting down to
-            var countDownDate = new Date(session_start_datetime).getTime();
+    function timeToStart() {
+        // Set the date we're counting down to
+        var countDownDate = new Date(session_start_datetime).getTime();
 
-            // Update the count down every 1 second
-            var x = setInterval(function () {
+        console.log("session_start_datetime: "+session_start_datetime);
 
-                // Get today's date and time
-                var now = new Date().getTime();
+        // Update the count down every 1 second
+        var x = setInterval(function () {
 
-                // Find the distance between now and the count down date
-                var distance = countDownDate - now;
+            // Get today's date and time
+            var now = new Date().getTime();
 
-                // Time calculations for days, hours, minutes and seconds
-                var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            console.log("now: "+now);
 
-                var timer_string = seconds + "s ";
-                if (minutes != 0)
-                    timer_string = minutes + "m " + timer_string;
-                if (hours != 0)
-                    timer_string = hours + "h " + timer_string;
-                if (days != 0)
-                    timer_string = days + "d " + timer_string;
-                timer_string = "comienza en: "+timer_string;
+            // Find the distance between now and the count down date
+            var distance = countDownDate - now;
 
-                    // Display the result in the element with id="demo"
-                //$('#quiz-time-left').html('Time Left: '+hours + "h " + minutes + "m " + seconds + "s ");
-                //console.log('Time Left: '+hours + "h " + minutes + "m " + seconds + "s ");
-                $('#id_day_time_clock').text(timer_string);
+            // Time calculations for days, hours, minutes and seconds
+            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-                // If the count down is finished,
-                if (distance < 0) {
-                    clearInterval(x);
-                    timeleft();
-                }
-            }, 1000);
-        }
+            var timer_string = seconds + "s ";
+            if (minutes != 0)
+                timer_string = minutes + "m " + timer_string;
+            if (hours != 0)
+                timer_string = hours + "h " + timer_string;
+            if (days != 0 && days)
+                timer_string = days + "d " + timer_string;
+            timer_string = "starts in: "+timer_string;
 
-        var now = new Date().getTime();
-        var sessionStartDateTime = new Date(session_start_datetime).getTime();
-        if (now < sessionStartDateTime) {
-            timeToStart();
-        }
-        else {
-            timeleft();
-        }
+            // Display the result in the element with id="demo"
+            //$('#quiz-time-left').html('Time Left: '+hours + "h " + minutes + "m " + seconds + "s ");
+            //console.log('Time Left: '+hours + "h " + minutes + "m " + seconds + "s ");
+            $('#id_day_time_clock').text(timer_string);
 
-        document.getElementById('id_day_time_clock').innerHTML = "00" + " : " + "00";
-        $(document).on("click", "#btn_timer_start", function () {
-            $('#btn_timer_start').prop('disabled', true);
-            //setInterval('timer()', 1000);
-            timeleft();
-        });
-        $(document).on("click", "#btn_timer_stop", function () {
-            document.getElementById('id_day_time_clock').innerHTML = "00" + " : " + "00";
-            location.reload();
-        });
+            // If the count down is finished,
+            if (distance < 0) {
+                clearInterval(x);
+                timeleft();
+            }
+        }, 1000);
+    }
+
+    var now = new Date().getTime();
+    var sessionStartDateTime = new Date(session_start_datetime).getTime();
+    if (now < sessionStartDateTime) {
+        timeToStart();
+    }
+    else {
+        timeleft();
+    }
+
+    document.getElementById('id_day_time_clock').innerHTML = "00" + " : " + "00";
+    $(document).on("click", "#btn_timer_start", function () {
+        $('#btn_timer_start').prop('disabled', true);
+        //setInterval('timer()', 1000);
+        timeleft();
     });
+    $(document).on("click", "#btn_timer_stop", function () {
+        document.getElementById('id_day_time_clock').innerHTML = "00" + " : " + "00";
+        location.reload();
+    });
+});
 
 // console.log($("#time_second").val())
 // var upgradeTime = $("#time_second").val();

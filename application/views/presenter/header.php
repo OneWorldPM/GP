@@ -19,7 +19,7 @@ $presenter_details = $this->common->get_presenter_data($this->session->userdata(
     <meta content="" name="description" />
     <meta content="" name="author" />
     <!-- end: META -->
-    <link rel="icon" href="<?= base_url() ?>assets/images/favicon.png" type="image/png">
+    <link rel="icon" href="<?= base_url() ?>front_assets/gp/gp-logo-white.png" type="image/png">
     <!-- start: GOOGLE FONTS -->
     <link rel="stylesheet" href="<?= base_url() ?>assets/css/googlefonts.css">
     <!--<link href="https://fonts.googleapis.com/css?family=Lato:300,400,400italic,600,700|Raleway:300,400,500,600,700|Crete+Round:400italic" rel="stylesheet" type="text/css" />-->
@@ -108,7 +108,7 @@ $presenter_details = $this->common->get_presenter_data($this->session->userdata(
                                     <i class="fa fa-desktop"></i>
                                 </div>
                                 <div class="item-inner">
-                                    <span class="title">Tablero de Control</span>
+                                    <span class="title">Dashboard</span>
                                 </div>
                             </div>
                         </a>
@@ -120,7 +120,7 @@ $presenter_details = $this->common->get_presenter_data($this->session->userdata(
                                     <i class="fa fa-tv"></i>
                                 </div>
                                 <div class="item-inner">
-                                    <span class="title">Sesiones</span>
+                                    <span class="title">Sessions</span>
                                 </div>
                             </div>
                         </a>
@@ -140,7 +140,7 @@ $presenter_details = $this->common->get_presenter_data($this->session->userdata(
                     <i class="ti-align-justify"></i>
                 </a>
                 <a class="navbar-brand" href="<?= base_url() ?>presenter/dashboard">
-                    <img class="kent_logo" src="<?= base_url() ?>front_assets/images/CCO_CORP_Logo_310wide.png" width="100%" alt="CCO Logo" />
+                    <img class="kent_logo" src="<?= base_url() ?>front_assets/images/CCO_CORP_Logo_310wide.png" width="100%" alt="GP Logo" />
                 </a>
                 <a href="#" class="sidebar-toggler pull-right visible-md visible-lg" data-toggle-class="app-sidebar-closed" data-toggle-target="#app">
                     <i class="ti-align-justify"></i>
@@ -169,12 +169,12 @@ $presenter_details = $this->common->get_presenter_data($this->session->userdata(
                         <ul class="dropdown-menu dropdown-dark">
                             <li>
                                 <a href="<?= base_url() ?>presenter/login/logout">
-                                    Cerrar Sesión
+                                    Log Out
                                 </a>
                             </li>
                         </ul>
                     </li>
                 </ul>
-                <label class="wallet-balance"  style="font-size: 22px; margin-top: 20px; font-weight: 700; margin-right: 20px; color: red;">Presentador </label>
+                <label class="wallet-balance"  style="font-size: 22px; margin-top: 20px; font-weight: 700; margin-right: 20px; color: red;">Presenter</label>
             </div>
         </header>
