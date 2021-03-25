@@ -189,8 +189,11 @@
 
         </div>
     </div>
-</section>
 
+</section>
+<div>
+
+</div>
 <div id="meetings-modal" class="modal" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">

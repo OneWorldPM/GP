@@ -44,6 +44,9 @@ class M_sessions extends CI_Model {
         $this->db->select('*');
         $this->db->from('sessions s');
         $this->db->where("DATE_FORMAT(s.sessions_date,'%Y-%m-%d') =", date('Y-m-d', strtotime($date)));
+        $this->db->or_where("sessions_id=",32);
+        $this->db->or_where("sessions_id=",33);
+        $this->db->or_where("sessions_id=",34);
         $this->db->order_by("s.sessions_date", "asc");
         $this->db->order_by("s.time_slot", "asc");
         $sessions = $this->db->get();

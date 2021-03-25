@@ -101,12 +101,13 @@
                         <div class="container" style=" background: rgba(250, 250, 250, 0.95);">
 
                             <!-- Blog post-->
-                            <div class="post-content post-single"> 
+                            <div class="post-content post-single">
 
                                 <!-- Blog image post-->
                                 <?php
                                 if (isset($all_sessions) && !empty($all_sessions)) {
                                     foreach ($all_sessions as $val) {
+
                                         ?>
                                         <div class="post-item">
                                             <div class="post-image col-md-3 m-t-20">
@@ -130,7 +131,7 @@
                                                 if (isset($val->presenter) && !empty($val->presenter)) {
                                                     foreach ($val->presenter as $value) {
                                                         ?>
-                                                        <div class="post-info" style="color: #000 !important; font-size: larger; font-weight: 700;"><span class="post-autor"><a href="#" style="color: #000;" data-presenter_photo="<?= $value->presenter_photo ?>" data-presenter_name="<?= $value->presenter_name ?>" data-designation="<?= $value->designation ?>" data-email="<?= $value->email ?>" data-company_name="<?= $value->company_name ?>" data-twitter_link="<?= $value->twitter ?>" data-facebook_link="<?= $value->facebook ?>" data-linkedin_link="<?= $value->linkin ?>" data-bio="<?= $value->bio ?>"  class="presenter_open_modul" style="color: #337ab7;"><u><?= $value->presenter_name ?></u><?= ($value->degree != "") ? "," : "" ?> </a></span> <span class="post-category"> <?= $value->degree ?></span> </div>
+                                                        <div class="post-info" style="color: #000 !important; font-size: larger; font-weight: 700;"><span class="post-autor"><a href="#" style="color: #000;" data-presenter_photo="<?= $value->presenter_photo ?>" data-presenter_id="<?= $value->presenter_id ?>" data-presenter_name="<?= $value->presenter_name ?>" data-designation="<?= $value->designation ?>" data-email="<?= $value->email ?>" data-company_name="<?= $value->company_name ?>" data-twitter_link="<?= $value->twitter ?>" data-facebook_link="<?= $value->facebook ?>" data-linkedin_link="<?= $value->linkin ?>" data-bio="<?= $value->bio ?>"  class="presenter_open_modul" style="color: #337ab7;"><u><?= $value->presenter_name ?></u><?= ($value->degree != "") ? "," : "" ?> </a></span> <span class="post-category"> <?= $value->degree ?></span> </div>
                                                         <div class="post-info" style="color: #000 !important; font-size: larger; font-weight: 700;"><span class="post-category"> <?= $value->company_name ?></span> </div>
                                                         <?php
                                                     }
@@ -197,6 +198,7 @@
                             <h3 id="presenter_title" style="font-weight: 700"></h3>
                             <p style="border-bottom: 1px dotted; margin-bottom: 10px; padding-bottom: 10px;"><b style="color: #000;">Email </b> <span id="email" style="padding-left: 10px;"></span></p>
                             <p style="border-bottom: 1px dotted; margin-bottom: 10px; padding-bottom: 10px;"><b style="color: #000;">Company </b> <span id="company" style="padding-left: 10px;"></span></p>
+                            <p id="p-bio" style="border-bottom: 1px dotted; margin-bottom: 10px; padding-bottom: 10px;"><b style="color: #000;">Bio </b> <span id="bio" style="padding-left: 10px;"></span></p>
                         </div>
                     </div>
                 </div>
@@ -221,6 +223,7 @@
             var twitter_link = $(this).attr("data-twitter_link");
             var facebook_link = $(this).attr("data-facebook_link");
             var linkedin_link = $(this).attr("data-linkedin_link");
+            var presenter_id = $(this).attr("data-presenter_id");
             var bio = $(this).attr('data-bio');
             if (presenter_photo != "" && presenter_photo != null) {
                 $.ajax({
@@ -252,6 +255,17 @@
                 $('#company').text("");
                 $('#company_lbl').text("");
             }
+
+            console.log(presenter_id);
+            $('#bio').text(bio);
+            if (presenter_id == "2" || presenter_id == "3" || presenter_id == "4" ) {
+                $('#p-bio').show();
+                $('#bio').text(bio);
+            } else {
+                $('#bio').text('');
+                $('#p-bio').hide();
+            }
+
             $("#twitter_link").attr("href", twitter_link);
             $("#facebook_link").attr("href", facebook_link);
             $("#linkedin_link").attr("href", linkedin_link);

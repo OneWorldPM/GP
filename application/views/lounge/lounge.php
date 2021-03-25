@@ -4,7 +4,7 @@
 <link href="<?= base_url() ?>assets/lounge/lounge.css?v=<?= rand(200, 300) ?>" rel="stylesheet">
 <style>
     body{
-        background-image: url(<?= base_url() ?>front_assets/images/FAUXSKO21/Forescout_FAUXSKO21_Lounge_Page_Mockup.png);
+        background-image: url(<?= base_url() ?>front_assets/gp/istockphoto_959533556_612x612.jpg);
         background-attachment: fixed;
         background-size: cover !important;
         background-position: center center !important;
@@ -187,6 +187,36 @@
                 </div>
             </div>
 
+        </div>
+        <div class="row">
+            <?php
+
+            function fetchData($url){
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_URL, $url);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                curl_setopt($ch, CURLOPT_TIMEOUT, 20);
+                $result = curl_exec($ch);
+                curl_close($ch);
+                return $result;
+            }
+
+            $result = fetchData("https://api.instagram.com/v1/users/USER ID HERE/media/recent/?access_token=ACCES TOKEN HERE&count=14");
+
+
+            $result = json_decode($result);
+            foreach ($result->data as $post) {
+                if(empty($post->caption->text)) {
+                    // Do Nothing
+                }
+                else {
+                    echo '<a class="instagram-unit" target="blank" href="'.$post->link.'">
+        <img src="'.$post->images->low_resolution->url.'" alt="'.$post->caption->text.'" width="100%" height="auto" />
+        <div class="instagram-desc">'.htmlentities($post->caption->text).' | '.htmlentities(date("F j, Y, g:i a", $post->caption->created_time)).'</div></a>';
+                }
+
+            }
+            ?>
         </div>
     </div>
 </section>
