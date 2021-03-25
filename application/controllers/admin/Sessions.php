@@ -55,6 +55,9 @@ class Sessions extends CI_Controller {
         $data['sessions_type'] = $this->msessions->getSessionTypes();
         $data['session_tracks'] = $this->msessions->getSessionTracks();
         $data['unique_identifier_id'] = $this->msessions->getSession_Unique_Identifier_ID();
+
+        $data['all_attendees'] = $this->msessions->getAllAttendees();
+
         $this->load->view('admin/header');
         $this->load->view('admin/add_sessions', $data);
         $this->load->view('admin/footer');
@@ -74,6 +77,9 @@ class Sessions extends CI_Controller {
         $data['presenter'] = $this->msessions->getPresenterDetails();
         $data['sessions_type'] = $this->msessions->getSessionTypes();
         $data['session_tracks'] = $this->msessions->getSessionTracks();
+
+        $data['all_attendees'] = $this->msessions->getAllAttendees();
+
         $this->load->view('admin/header');
         $this->load->view('admin/add_sessions', $data);
         $this->load->view('admin/footer');

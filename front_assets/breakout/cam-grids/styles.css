@@ -1,0 +1,69 @@
+/* Container */
+    #Dish {
+        display: flex;
+        align-content: center;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        vertical-align: middle;
+        position: absolute;
+        left: 0px;
+        bottom: 0px;
+        top: 0px;
+        right: 0px;
+        margin-top: 10%;
+        margin-bottom: 5%;
+    }
+/* Camera */
+    #Dish div {
+        position: relative;
+        vertical-align: middle;
+        align-self: center;
+        border-radius: 10px;
+        overflow: hidden;
+        display: inline-block;
+        box-shadow: 0px 12px 22px rgba(0, 0, 0, 0.4);
+        animation: show 0.4s ease;
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+/* Details (optional) */
+    /* Aspect Ratio Number */
+
+/*#Dish div:after {*/
+/*    color: #fff;*/
+/*    font-size: 15px;*/
+/*    font-family: Arial, Helvetica, sans-serif;*/
+/*    position: absolute;*/
+/*    bottom: 0px;*/
+/*    left: 0px;*/
+/*    font-weight: 100;*/
+/*    content: "Athul AK (host)";*/
+/*    display: block;*/
+/*    background-color: #aaaaaa87;*/
+/*    padding: 0 10px 0 10px;*/
+/*}*/
+    /* Gray Diagonal */
+    /*    #Dish div:before {*/
+    /*        position: absolute;*/
+    /*        height: 1px;*/
+    /*        background: #ddd;*/
+    /*        width: 100%;*/
+    /*        transform: rotate(-37deg);*/
+    /*        top: 50%;*/
+    /*        font-weight: 100;*/
+    /*        content: "4:3";*/
+    /*        display: block;*/
+    /*        ;*/
+    /*    }*/
+/* Animation */
+    @keyframes show {
+        0% {
+            opacity: 0;
+            transform: scale(0.4) translateY(20px);
+        }
+        100% {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
+    }

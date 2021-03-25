@@ -122,11 +122,17 @@ class M_sessions extends CI_Model {
             $session_right_bar = implode(",", $post["session_right_bar"]);
         }
 
-        if (!empty($post['sessions_type'])) {
-            $sessions_type_id = implode(",", $post['sessions_type']);
-        } else {
-            $sessions_type_id = "";
-        }
+//        if (!empty($post['sessions_type'])) {
+//            $sessions_type_id = implode(",", $post['sessions_type']);
+//        } else {
+//            $sessions_type_id = "";
+//        }
+
+        //echo "<pre>"; print_r($post); exit("</pre>");
+
+        $sessions_type_id = $post['sessions_type'];
+        $breakout_hosts = ($sessions_type_id == 2 && isset($post['hosts_ids']))?implode (", ", $post['hosts_ids']):null;
+
         if (!empty($post['sessions_tracks'])) {
             $sessions_tracks_id = implode(",", $post['sessions_tracks']);
         } else {
@@ -140,7 +146,7 @@ class M_sessions extends CI_Model {
         }
 		
         $set = array(
-            'presenter_id' => implode(",", $post['select_presenter_id']),
+            'presenter_id' => (isset($post['select_presenter_id']))?implode(",", $post['select_presenter_id']):'',
 			'moderator_id' => $moderator_id,
             'session_title' => trim($post['session_title']),
             'sessions_description' => trim($post['sessions_description']),
@@ -153,6 +159,7 @@ class M_sessions extends CI_Model {
             'embed_html_code' => trim($post['embed_html_code']),
             'embed_html_code_presenter' => trim($post['embed_html_code_presenter']),
             'sessions_type_id' => $sessions_type_id,
+            'breakout_hosts' => $breakout_hosts,
             'sessions_tracks_id' => $sessions_tracks_id,
             'sessions_type_status' => trim($post['sessions_type_status']),
 			'attendee_view_links_status' => (isset($post['attendee_view_links_status'])) ? $post['attendee_view_links_status'] : 1,
@@ -282,11 +289,16 @@ class M_sessions extends CI_Model {
         }
 
 
-        if (!empty($post['sessions_type'])) {
-            $sessions_type_id = implode(",", $post['sessions_type']);
-        } else {
-            $sessions_type_id = "";
-        }
+//        if (!empty($post['sessions_type'])) {
+//            $sessions_type_id = implode(",", $post['sessions_type']);
+//        } else {
+//            $sessions_type_id = "";
+//        }
+
+        $sessions_type_id = $post['sessions_type'];
+        $breakout_hosts = ($sessions_type_id == 2 && isset($post['hosts_ids']))?implode (", ", $post['hosts_ids']):null;
+
+
         if (!empty($post['sessions_tracks'])) {
             $sessions_tracks_id = implode(",", $post['sessions_tracks']);
         } else {
@@ -322,6 +334,7 @@ class M_sessions extends CI_Model {
             'embed_html_code' => trim($post['embed_html_code']),
             'embed_html_code_presenter' => trim($post['embed_html_code_presenter']),
             'sessions_type_id' => $sessions_type_id,
+            'breakout_hosts' => $breakout_hosts,
             'sessions_tracks_id' => $sessions_tracks_id,
             'sessions_type_status' => trim($post['sessions_type_status']),
             'tool_box_status' => (isset($post['tool_box_status'])) ? $post['tool_box_status'] : 1,
@@ -1609,6 +1622,20 @@ class M_sessions extends CI_Model {
     private function fixZeroTotalTime($start)
     {
 
+    }
+
+    public function getAllAttendees()
+    {
+        $this->db->select("cust_id, CONCAT(first_name, ' ', last_name) as full_name, email");
+        $this->db->from('customer_master');
+        $this->db->order_by('first_name', 'asc');
+        $response = $this->db->get();
+        if ($response->num_rows() > 0)
+        {
+            return $response->result();
+        }else{
+            return array();
+        }
     }
 
 }

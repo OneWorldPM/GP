@@ -20,7 +20,7 @@
         <link href="<?= base_url() ?>front_assets/css/theme-base.css?v=6" rel="stylesheet">
 
         <!-- Template elements -->
-        <link href="<?= base_url() ?>front_assets/css/theme-elements.css" rel="stylesheet">
+        <link href="<?= base_url() ?>front_assets/css/theme-elements.css?v2" rel="stylesheet">
 
         <!-- Responsive classes -->
         <link href="<?= base_url() ?>front_assets/css/responsive.css" rel="stylesheet">

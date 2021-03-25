@@ -109,14 +109,22 @@
                                     foreach ($all_sessions as $val) {
                                         ?>
                                         <div class="post-item">
-                                            <div class="post-image col-md-3 m-t-20"> 
-                                                <a href="<?= base_url() ?>sessions/attend/<?= $val->sessions_id ?>"> <?php if ($val->sessions_photo != "") { ?> <img alt="" src="<?= base_url() ?>uploads/sessions/<?= $val->sessions_photo ?>"> <?php } else { ?>  <img alt="" src="<?= base_url() ?>front_assets/images/session_avtar.jpg"> <?php } ?>  </a> 
+                                            <div class="post-image col-md-3 m-t-20">
+                                                <?php if($val->sessions_type_id == 2): ?>
+                                                    <a href="<?=base_url()?>breakout_room/meeting/<?=$val->sessions_id ?>"> <?php if ($val->sessions_photo != "") { ?> <img alt="" src="<?= base_url() ?>uploads/sessions/<?= $val->sessions_photo ?>"> <?php } else { ?>  <img alt="" src="<?= base_url() ?>front_assets/images/session_avtar.jpg"> <?php } ?>  </a>
+                                                <?php else: ?>
+                                                    <a href="<?= base_url() ?>sessions/attend/<?= $val->sessions_id ?>"> <?php if ($val->sessions_photo != "") { ?> <img alt="" src="<?= base_url() ?>uploads/sessions/<?= $val->sessions_photo ?>"> <?php } else { ?>  <img alt="" src="<?= base_url() ?>front_assets/images/session_avtar.jpg"> <?php } ?>  </a>
+                                                <?php endif; ?>
                                             </div>
                                             <div class="post-content-details col-md-9 m-t-30">
 
                                                 <div class="post-title">
                                                     <h6 style="font-weight: 600"><?= $val->sessions_date . ' ' . date("h:i A", strtotime($val->time_slot)) . ' - ' . date("h:i A", strtotime($val->end_time)) ?></h6>
-                                                    <h3><a href="<?= base_url() ?>sessions/attend/<?= $val->sessions_id ?>" style="color: #0048ac; font-weight: 900;"><?= $val->session_title ?></a></h3>
+                                                    <?php if($val->sessions_type_id == 2): ?>
+                                                        <h3><a href="<?=base_url()?>breakout_room/meeting/<?=$val->sessions_id ?>" style="color: #0048ac; font-weight: 900;"><?= $val->session_title ?></a></h3>
+                                                    <?php else: ?>
+                                                        <h3><a href="<?= base_url() ?>sessions/attend/<?= $val->sessions_id ?>" style="color: #0048ac; font-weight: 900;"><?= $val->session_title ?></a></h3>
+                                                    <?php endif; ?>
                                                 </div>
                                                 <?php
                                                 if (isset($val->presenter) && !empty($val->presenter)) {
@@ -130,7 +138,11 @@
                                                 ?>
                                                 <div class="post-description">
                                                     <p style="margin-bottom: 10px;"><?= $val->sessions_description ?></p>
-                                                    <a class="button black-light button-3d rounded right" style="margin: 0px 0;background-color: #002f70;" href="<?= ($val->stream_type == 'vimeo_iframe')?base_url().'sessions/view/'.$val->sessions_id:base_url().'sessions/attend/'.$val->sessions_id ?>"><span>Attend</span></a>
+                                                    <?php if($val->sessions_type_id == 2): ?>
+                                                        <a class="button black-light button-3d rounded right" style="margin: 0px 0;background-color: #002f70;" href="<?=base_url()?>breakout_room/meeting/<?=$val->sessions_id ?>"><span>Attend</span></a>
+                                                    <?php else: ?>
+                                                        <a class="button black-light button-3d rounded right" style="margin: 0px 0;background-color: #002f70;" href="<?= ($val->stream_type == 'vimeo_iframe')?base_url().'sessions/view/'.$val->sessions_id:base_url().'sessions/attend/'.$val->sessions_id ?>"><span>Attend</span></a>
+                                                    <?php endif; ?>
                                                 </div>
                                             </div>
                                         </div>

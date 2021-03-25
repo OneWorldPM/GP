@@ -1,6 +1,18 @@
 <?php
 $user_role = $this->session->userdata('role');
+
+if(isset($_GET['testing']))
+{
+    echo "<pre>"; print_r($all_attendees); exit("</pre>");
+}
 ?>
+
+<style>
+    .select2-selection{
+        overflow-y: auto;
+    }
+</style>
+
 <div class="main-content">
     <div class="wrap-content container" id="container">
         <!-- start: PAGE TITLE -->
@@ -134,20 +146,31 @@ $user_role = $this->session->userdata('role');
                                     <hr style="border: 2px solid;"/>
 
                                     <div class="row" <?=($user_role != 'super_admin')?'style="display:none"':''?>>
-                                        <label class="col-md-12 text-large text-bold">Select Session Type</label>
+                                        <label class="col-md-12 text-large text-bold">Session Type</label>
                                         <?php
                                         if (isset($sessions_type) && !empty($sessions_type)) {
-                                            foreach ($sessions_type as $val) {
-                                                if ($val->sessions_type != "") {
-                                                    ?>
-                                                    <div class="form-group col-md-6" style="color: #000;">
-                                                        <input type="checkbox" class="col-md-1"  name="sessions_type[]" <?= (isset($sessions_edit) && !empty($sessions_edit)) ? in_array($val->sessions_type_id, explode(",", $sessions_edit->sessions_type_id)) ? 'checked' : '' : '' ?> id="sessions_type" value="<?= $val->sessions_type_id ?>" <?=($user_role != 'super_admin')?"onclick='return false;' onkeydown='return false; readonly'":''?>> <?= $val->sessions_type ?><br>
-                                                    </div>
-                                                    <?php
-                                                }
-                                            }
+                                            ?>
+                                            <div class="form-group col-md-12" style="color: #000;">
+                                                <select class="form-control" id="sessions_type" name="sessions_type" <?=($user_role != 'super_admin')?"style='pointer-events:none;' readonly":''?>>
+                                                    <?php foreach ($sessions_type as $val): ?>
+                                                        <option <?= (isset($sessions_edit->sessions_type_id) && $sessions_edit->sessions_type_id == $val->sessions_type_id)?"selected":""?> value="<?=$val->sessions_type_id?>"><?=$val->sessions_type?></option>
+                                                    <?php endforeach; ?>
+                                                </select>
+                                            </div>
+                                            <?php
                                         }
                                         ?>
+
+                                        <div id="hostsForBreakout" class="form-group col-md-12" style="color: #000; <?=(isset($sessions_edit->sessions_type_id) && $sessions_edit->sessions_type_id == 2)?'':'display: none;'?>">
+                                            <label class="text-large text-bold">Breakout Hosts</label>
+                                            <select multiple=""  class="form-control" id="hosts_ids" name="hosts_ids[]" <?=($user_role != 'super_admin')?"style='pointer-events:none;' readonly":''?>>
+                                                <?php if (isset($all_attendees)): ?>
+                                                    <?php foreach ($all_attendees as $attendee): ?>
+                                                        <option <?= (isset($sessions_edit->breakout_hosts) && in_array($attendee->cust_id, explode(',', $sessions_edit->breakout_hosts)))?"selected":""?> value="<?=$attendee->cust_id?>"><?=$attendee->full_name?> <small>(<?=$attendee->email?>)</small></option>
+                                                    <?php endforeach; ?>
+                                                <?php endif; ?>
+                                            </select>
+                                        </div>
                                     </div>
                                     <div class="row" <?=($user_role != 'super_admin')?'style="display:none"':''?>>
                                         <label class="col-md-12 text-large text-bold">Select Sessions Tracks</label>
@@ -382,6 +405,9 @@ $user_role = $this->session->userdata('role');
 </div>
 </div>
 
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
 <script type="text/javascript">
     $(document).ready(function ()
     {
@@ -488,10 +514,7 @@ $user_role = $this->session->userdata('role');
                                         } else if ($("#embed_html_code").val() == "") {
             alertify.error("Enter Embed HTML Code");
     return false;
-                                        }else if(sum == 0){
-            alertify.error("Please Add presenter");
-    return false;
-                                    }else if(sum > 15){
+                                        }else if(sum > 15){
             alertify.error("Maximum add 15 Presenter");
     return false;
                                             } else {
@@ -500,7 +523,7 @@ $user_role = $this->session->userdata('role');
                                                 return false;
                                                 });
                                                 
-                                                $(document).on("click", ".btn_remove_presenter", function () {
+    $(document).on("click", ".btn_remove_presenter", function () {
             var sessions_add_presenter_id = $(this).attr("data-sessions_add_presenter_id");
     $.ajax({
     url: "<?= base_url() ?>admin/sessions/remove_presenter_by_session",
@@ -514,5 +537,31 @@ $user_role = $this->session->userdata('role');
                                                 }
                                                 });
                                             });
-                                        });
+
+
+
+        /****** Breakouts feature by Athul ****/
+
+        <?php if (isset($sessions_edit->sessions_type_id) && $sessions_edit->sessions_type_id == 2): ?>
+        $('#hosts_ids').select2({
+            multiple: true
+        });
+        <?php endif; ?>
+
+        $('#sessions_type').on('change', function () {
+            if($(this).val() == 2) //Breakout session
+            {
+                $('#hostsForBreakout').show();
+                $('#hosts_ids').select2({
+                    multiple: true
+                });
+            }else{
+                $('#hostsForBreakout').hide();
+            }
+        });
+
+
+    });
+
+
 </script>

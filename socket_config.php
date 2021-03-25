@@ -16,6 +16,9 @@ $config = array(
     "socket_lounge_video_meet_room" => "GP_LOUNGE_VIDEO_MEET", //eg; cco_lounge_video_meet_dev_your_name
     "socket_lounge_oto_video" => "GP_LOUNGE_OTO_VIDEO", //eg; cco_lounge_video_meet_dev_your_name
     "socket_roundtable_room" => "GP_ROUNDTABLE_ROOM", //eg; cco_lounge_video_meet_dev_your_name
+    "socket_roundtable_additional_room" => "GP_ROUNDTABLE_ADDITIONAL_ROOM", //eg; cco_lounge_video_meet_dev_your_name
+    "socket_breakout_room" => "GP_BREAKOUT_ROOM", //eg; cco_lounge_video_meet_dev_your_name
+    "socket_breakout_additional_room" => "GP_BREAKOUT_ADDITIONAL_ROOM" //eg; cco_lounge_video_meet_dev_your_name
 );
 
 echo json_encode($config);
