@@ -37,11 +37,34 @@
                         Event Sponsors
                     </div>
                 </div>
+                <?php
+                if (isset($all_sponsor) && !empty($all_sponsor)) {
+                    foreach ($all_sponsor as $val) {
+                        ?>
+                        <?php if ($val->company_name == "Gravity Productions") { ?>
+                            <div class="col-md-12 m-t-30 gravity-productions"
+                                 style="text-align: -webkit-center; min-height: 350px;">
+                                <div class="col-md-12 col-sm-12" style="margin-bottom:40px;" >
+                                    <a class="icon-home" href="<?= base_url() ?>sponsor/view/<?= $val->sponsors_id ?>">
+                                        <div class="col-lg box-home text-center" style="max-width:500px!important;max-height:800px!important">
+                                            <img src="<?= base_url() ?>uploads/sponsors/<?= $val->sponsors_logo ?>"
+                                                 alt="welcome" style="max-width: 300px">
+                                            <h2><?= $val->company_name ?></h2>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        <?php } ?>
+                        <?php
+                    }
+                }
+                ?>
                 <div class="col-md-12 m-t-30" style="text-align: -webkit-center; min-height: 500px;">
                     <?php
                     if (isset($all_sponsor) && !empty($all_sponsor)) {
                         foreach ($all_sponsor as $val) {
                             ?>
+                            <?php if($val->company_name!=="Gravity Productions") {?>
                             <div class="col-md-4 col-sm-12" style="margin-bottom:40px;">
                                 <a class="icon-home" href="<?= base_url() ?>sponsor/view/<?= $val->sponsors_id ?>"> 
                                     <div class="col-lg box-home text-center">
@@ -50,6 +73,7 @@
                                     </div>
                                 </a>
                             </div>
+                            <?php }?>
                             <?php
                         }
                     }
