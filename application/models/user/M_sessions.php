@@ -30,6 +30,9 @@ class M_sessions extends CI_Model {
         $this->db->from("sessions s");
         $this->db->where('DATE_FORMAT(s.sessions_date, "%Y-%m-%d") >=', date('Y-m-d'));
         $this->db->where('DATE_FORMAT(s.sessions_date, "%Y-%m-%d") <', date('Y-m-d', strtotime("+7 days")));
+        $this->db->or_where("sessions_id=",32);
+        $this->db->or_where("sessions_id=",33);
+        $this->db->or_where("sessions_id=",34);
         $this->db->group_by('dayname');
         $this->db->order_by("s.sessions_date", "asc");
         $result = $this->db->get();
