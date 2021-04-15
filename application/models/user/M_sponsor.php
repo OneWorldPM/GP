@@ -28,6 +28,12 @@ class M_sponsor extends CI_Model {
             return '';
         }
     }
+    public function FishbowlDataUpdate($data){
+        $sql="CREATE TABLE IF NOT EXISTS `fishbowl` ( `id` int(255) NOT NULL UNIQUE AUTO_INCREMENT, `sponsor_id` int(255) NOT NULL, `attendee_id` int(255) NOT NULL, `datetime` datetime NOT NULL ) ENGINE=InnoDB DEFAULT CHARSET=utf8";
+        $this->db->query($sql);
+        $this->db->insert('fishbowl',$data);
+      
+    }
 
     public function validateLogin($login_data) {
         $result = $this->db->select('*')->get_where('sponsors', $login_data);

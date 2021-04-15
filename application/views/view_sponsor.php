@@ -8,7 +8,7 @@ $sponsors_logo = ($sponsor->sponsors_logo == '') ? 'logo_placeholder.png' : $spo
 <main role="main">
 
     <!-- Main jumbotron for a primary marketing message or call to action -->
-    <div class="jumbotron" style="background-image: url(<?= base_url() ?>front_assets/sponsor/images/covers/sponsor-cover-default.jpg)">
+    <div class="jumbotron" style="background-image: url(<?= base_url() ?>front_assets/sponsor/images/covers/Booth_Template_5_GP_DEMO.jpg)">
         <div class="container" style="height: 220px;">
             <img class="sponsor-main-logo" src="<?= base_url() ?>uploads/sponsors/<?= $sponsors_logo ?>">
             <h1 class="sponsor-name">
