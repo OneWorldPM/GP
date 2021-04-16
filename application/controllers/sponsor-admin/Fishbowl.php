@@ -30,7 +30,6 @@ class Fishbowl extends CI_Controller
         //$this->db->where(array('f.sponsor_id'=>$sponsorId));
         $this->db->group_by('f.attendee_id');
         $sessions = $this->db->get();
-        print_r($this->db->last_query());
         if ($sessions->num_rows() > 0) {
             return $sessions->result();
         } else {
