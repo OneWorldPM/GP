@@ -404,7 +404,7 @@
 <!--                                            </li>-->
 <!--                                        </ul>-->
                                     <?php } else { ?>
-                                        <?php if($this->session->userdata('sponsors_id') != ""){
+                                        <?php if($this->session->userdata('userType')== "sponsor"){ 
                                             ?>
                                             <ul class="main-menu nav navbar-nav navbar-right">
                                         <li><a href="<?= base_url() ?>sponsor-admin/fishbowl" >Fishbowl</a></li>
