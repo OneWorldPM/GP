@@ -343,10 +343,6 @@
                                             <li><a href="https://yourconference.live/support/submit_ticket" target="_blank">TECHNICAL SUPPORT</a></li>
                                         </ul>
                                         <ul class="main-menu nav navbar-nav navbar-right">
-                                        <li><a href="<?= base_url() ?>sponsor-admin/fishbowl" >Fishbowl</a></li>
-                                        </ul>
-
-                                        <ul class="main-menu nav navbar-nav navbar-right">
                                             <li><a href="<?= base_url() ?>lounge">LOUNGE</a></li>
                                         </ul>
 
@@ -408,6 +404,14 @@
 <!--                                            </li>-->
 <!--                                        </ul>-->
                                     <?php } else { ?>
+                                        <?php if($this->session->userdata('sponsors_id') != ""){
+                                            ?>
+                                            <ul class="main-menu nav navbar-nav navbar-right">
+                                        <li><a href="<?= base_url() ?>sponsor-admin/fishbowl" >Fishbowl</a></li>
+                                        </ul>
+
+                                        <?php }else{} ?>
+                                        
                                         <ul class="main-menu nav navbar-nav navbar-right">
                                             <li><a href="https://yourconference.live/support/submit_ticket" target="_blank">SUPPORT</a></li>
                                         </ul>
