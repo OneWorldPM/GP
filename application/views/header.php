@@ -406,15 +406,22 @@
                                     <?php } else { ?>
                                         <?php if($this->session->userdata('userType')== "sponsor"){ 
                                             ?>
+                                            <ul class="main-menu nav navbar-nav navbar-right" >
+                                                           <li> <a href="<?= base_url() ?>sponsor-admin/logout" >
+                                                                Log Out
+                                                            </a></li>
+                                                        </ul>
                                             <ul class="main-menu nav navbar-nav navbar-right">
                                         <li><a href="<?= base_url() ?>sponsor-admin/fishbowl" >Fishbowl</a></li>
                                         </ul>
+                                        
 
                                         <?php }else{} ?>
                                         
                                         <ul class="main-menu nav navbar-nav navbar-right">
                                             <li><a href="https://yourconference.live/support/submit_ticket" target="_blank">SUPPORT</a></li>
                                         </ul>
+                                        
                                     <?php } ?>
                                 </nav>
                             </div>
