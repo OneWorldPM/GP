@@ -338,7 +338,7 @@
                                 </div>
                             </div>
                         </div>
-                        <!--                        <div class="col-md-12  m-t-20">
+                                               <div class="col-md-12  m-t-20">
                                                     <h5 style="padding-bottom: 4px; border-bottom: 2px solid #ebebeb">Upload vCard</h5>
                                                 </div>
                                                 <div class="row">
@@ -407,7 +407,7 @@
                         ?></small>
                                                         </div>
                                                     </div>
-                                                </div>-->
+                                                </div>
                         <input type="hidden" name="cust_id" id="cust_id"  value="<?= (isset($myprofile)) ? $myprofile->cust_id : ''; ?>">
                         <div class="row">
                             <div class="col-md-12">

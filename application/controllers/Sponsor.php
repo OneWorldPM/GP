@@ -33,6 +33,11 @@ class Sponsor extends CI_Controller {
         $this->load->view('header');
         $this->load->view('view_sponsor', $data);
         $this->load->view('footer');
+        $card = array(
+            'sponsor_id' => $sponsor_id,
+            'attendee_id' => $this->session->userdata('cid'),
+            'datetime' => date('Y-m-d H:i:s')
+        );
+         $this->objsponsor->FishbowlDataUpdate($card);
     }
-
 }
