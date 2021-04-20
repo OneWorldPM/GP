@@ -369,9 +369,7 @@
                                             }
                                             ?>
                                         </ul>
-                                        <ul class="main-menu nav navbar-nav navbar-right">
-                                        <li><a href="<?= base_url() ?>sponsor-admin/fishbowl" >Fishbowl</a></li>
-                                        </ul>
+                                        
 <!--                                        <ul class="nav navbar-nav navbar-right">-->
 <!--                                            <li class="sticky_resources_open" data-type="resourcesSticky"><a data-type2="off">Recursos</a></li>-->
 <!--                                            <li>-->
@@ -414,7 +412,9 @@
                                                                 Log Out
                                                             </a></li>
                                                         </ul>
-                                            
+                                            <ul class="main-menu nav navbar-nav navbar-right">
+                                        <li><a href="<?= base_url() ?>sponsor-admin/fishbowl" >Fishbowl</a></li>
+                                        </ul>
                                         
 
                                         <?php }else{} ?>
