@@ -10,7 +10,7 @@ $sponsors_logo = ($sponsor->sponsors_logo == '') ? 'logo_placeholder.png' : $spo
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron" style="background-size: contain;background-repeat: no-repeat;background-position: center;background-color: #002f70; padding-top:0 !important;padding-bottom:0 !important; ">     
     <div style="position: relative; padding:0 0 0 20%">
-    <img src="<?=base_url()?>front_assets/sponsor/images/covers/Booth_Template_5_GP DEMO.jpg" style="width:80%;">
+    <img src="<?=base_url()?>front_assets/sponsor/images/covers/Booth_Template_5_GP_DEMO.jpg" style="width:80%;">
     </div> 
         
     
