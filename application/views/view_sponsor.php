@@ -8,14 +8,22 @@ $sponsors_logo = ($sponsor->sponsors_logo == '') ? 'logo_placeholder.png' : $spo
 <main role="main">
 
     <!-- Main jumbotron for a primary marketing message or call to action -->
-    <div class="jumbotron" style="background-image: url(<?= base_url() ?>front_assets/sponsor/images/covers/Booth_Template_5_GP_DEMO.jpg);background-size: contain;background-repeat: no-repeat;background-color: #002f70;background-position: center;">
-        <div class="container" style="height: 220px;">
+    <div class="jumbotron" style="background-size: contain;background-repeat: no-repeat;background-position: center;background-color: #002f70; padding-top:0 !important;padding-bottom:0 !important; ">     
+    <div style="position: relative; padding:0 0 0 20%">
+    <img src="<?=base_url()?>front_assets/sponsor/images/covers/Booth_Template_5_GP DEMO.jpg" style="width:80%;">
+    </div> 
+        
+    
+   
+        <div class="container" style="height: 220px; position: absolute;
+  top: 80px;width: 200px;  height: 100px;">
             <img class="sponsor-main-logo" src="<?= base_url() ?>uploads/sponsors/<?= $sponsors_logo ?>">
             <h1 class="sponsor-name">
                 <?= $sponsor->company_name ?>
             </h1>
         </div>
     </div>
+
 
     <div class="container">
         <!-- Example row of columns -->
